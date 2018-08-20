@@ -9,7 +9,7 @@ response = requests.get("https://jsonplaceholder.typicode.com/todos")
 todos = json.loads(response.text)
 print(todos)
 '''
-'''
+
 quizQuestions = {}  
 quizQuestions['questionBank'] = []  
 quizQuestions['questionBank'].append({  
@@ -44,12 +44,12 @@ quizQuestions['questionBank'].append({
     'c': 'Peace, Literature and Economics',
     'd': 'all of them',
     'answer':'all of them'
-})'''
-'''
-with open('quizQuestions.txt', 'w') as outfile:  
+})
+
+with open('quizQuestions.json', 'w') as outfile:  
     json.dump(quizQuestions, outfile)
-'''
-with open('quizQuestions.txt') as json_file:
+
+with open('quizQuestions.json') as json_file:
     data = json.load(json_file)
     for q in data['questionBank']:
         print('Question is: ' + q['question'])
