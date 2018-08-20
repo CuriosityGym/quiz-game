@@ -1,1 +1,197 @@
-{"questionBank": [{"question": "Grand Central Terminal, Park Avenue, New York is the worlds", "a": "largest railway station", "b": "Longest railway station", "c": "highest railway station", "d": "busiest railway station", "answer": "largest railway station"}, {"question": "Eritrea, which became the 182nd member of the UN in 1993, is in the continent of", "a": "Asia", "b": "Africa", "c": "Europe", "d": "Oceania", "answer": "Africa"}, {"question": "What invention was alexander graham bell famous for ", "a": "telephone", "b": "television", "c": "radiophone", "d": "mobile phone", "answer": "telephone"}, {"question": "For which of the following disciplines is the Nobel Prize awarded?", "a": "Physics and Chemistry", "b": "Physiology and Medicine", "c": "Peace, Literature and Economics", "d": "all of them", "answer": "all of them"}]}
+{
+  "questionBank": [
+    {
+      "question": "Grand Central Terminal, Park Avenue, New York is the worlds", 
+       "a": "largest railway station", 
+       "b": "Longest railway station", 
+       "c": "highest railway station", 
+       "d": "busiest railway station", 
+       "answer": "largest railway station"
+    }, 
+    {
+      "question": "Eritrea, which became the 182nd member of the UN in 1993, is in the continent of", 
+       "a": "Asia", 
+       "b": "Africa",
+       "c": "Europe", 
+       "d": "Oceania", 
+       "answer": "Africa"
+    }, 
+    {
+      "question": "What invention was alexander graham bell famous for ", 
+       "a": "telephone", 
+       "b": "television",
+       "c": "radiophone",
+       "d": "mobile phone",
+       "answer": "telephone"
+    },
+    {
+      "question": "For which of the following disciplines is the Nobel Prize awarded?", 
+       "a": "Physics and Chemistry", 
+       "b": "Physiology and Medicine", 
+       "c": "Peace, Literature and Economics", 
+       "d": "all of them", 
+       "answer": "all of them"
+    }
+    {
+      "question": "The party in which Hitler came into power in 1933 is known as", 
+       "a": "Klu-Klux-Klan", 
+       "b": "Labour Party", 
+       "c": "Nazi Party", 
+       "d": "Democratic Party", 
+       "answer": "Nazi Party"
+    }
+    {
+      "question": "Who won the 1998 FIFA World Cup?", 
+       "a": "Brazil", 
+       "b": "France", 
+       "c": "Germany", 
+       "d": "Spain", 
+       "answer": "France"
+    }
+    {
+      "question": "Which was the first non Test playing country to beat India in a cricket match?", 
+       "a": "pakistan", 
+       "b": "sri lanka", 
+       "c": "south africa", 
+       "d": "Zimbabwe", 
+       "answer": "sri lanka"
+    }
+    {
+      "question": "How long are professional Golf Tour players allotted per shot?", 
+       "a": "45 seconds", 
+       "b": "25 seconds", 
+       "c": "1 minute", 
+       "d": "2 minutes", 
+       "answer": "45 seconds"
+    }
+    {
+      "question": "Which country has the longest coastline of over 200,000 kilometres", 
+       "a": "Russia", 
+       "b": "Indonesia", 
+       "c": "Canada", 
+       "d": "Philippines", 
+       "answer": "Canada"
+    }
+    {
+      "question": "The number of countries the equator passes through is", 
+       "a": "5", 
+       "b": "17", 
+       "c": "13", 
+       "d": "9", 
+       "answer": "13"
+    }
+    {
+      "question": "Who won an Oscar for best male actor for Forrest Gump?", 
+       "a": "Tom hanks", 
+       "b": "Morgan Freeman", 
+       "c": "Leonarda di Caprio", 
+       "d": "Al Paccino", 
+       "answer": "Tom hanks"
+    }
+    {
+      "question": "Which French president came into power in 2017?", 
+       "a": "Francois Hollande", 
+       "b": "Jacques Chirac", 
+       "c": "Emmanuel Macron", 
+       "d": "Mark Rutte", 
+       "answer": "Emmanuel Macron"
+    }
+    {
+      "question": "Which animal does not make any sound?", 
+       "a": "Giraffe", 
+       "b": "Zebra", 
+       "c": "Hyena", 
+       "d": "Wildebeest", 
+       "answer": "Giraffe"
+    }
+    {
+      "question": "Which is the largest gulf?", 
+       "a": "Gulf of Aden", 
+       "b": "Gulf of Oman", 
+       "c": "Argolic Gulf", 
+       "d": "Gulf of Mexico", 
+       "answer": "Gulf of Mexico"
+    }
+    {
+      "question": "The closest galaxy to the milky way is", 
+       "a": "Canas Major Dwarf", 
+       "b": "Andromeda", 
+       "c": "Segue 2", 
+       "d": "Leo A", 
+       "answer": "Andromeda"
+    }
+    {
+      "question": "How many planets does the solar system have?", 
+       "a": "8", 
+       "b": "9", 
+       "c": "6", 
+       "d": "10", 
+       "answer": "8"
+    }
+    {
+      "question": "The largest moon in the solar system is", 
+       "a": "Europa", 
+       "b": "Enceladus", 
+       "c": "Titan", 
+       "d": "Mimas", 
+       "answer": "Titan"
+    }
+    {
+      "question": "Which explorer discovered America?", 
+       "a": "Vasco da Gama", 
+       "b": "King Henry", 
+       "c": "Christopher Columbus", 
+       "d": "Marco Polo", 
+       "answer": "Christopher Columbus"
+    }
+    {
+      "question": "In which year was the Soviet Union abolished?", 
+       "a": "1991", 
+       "b": "1987", 
+       "c": "1988", 
+       "d": "1996", 
+       "answer": "1991"
+    }
+    {
+      "question": "Which Indian king was allowed to live after Alexander the Great defeated him?", 
+       "a": "Chandragupta Maurya", 
+       "b": "Ashoka", 
+       "c": "Shah Jahan", 
+       "d": "Porus", 
+       "answer": "Porus"
+    }
+    {
+      "question": "Leonardo di Caprio won an Oscar for best male actor in", 
+       "a": "Shutter Island", 
+       "b": "Titanic", 
+       "c": "Inception", 
+       "d": "The Revenant", 
+       "answer": "The Revenant"
+    }
+    {
+      "question": "Which is the second largest country in the world?", 
+       "a": "China", 
+       "b": "Canada", 
+       "c": "USA", 
+       "d": "Russia", 
+       "answer": "Canada"
+    }
+    {
+      "question": "Who is the CEO of Tesla and Spacex?", 
+       "a": "Elon Musk", 
+       "b": "Tim Cook", 
+       "c": "Jack Ma", 
+       "d": "Sundar Pichai", 
+       "answer": "Elon Musk"
+    }
+    {
+      "question": "Which instrument is used to measure windspeed?", 
+       "a": "Barometer", 
+       "b": "Wind wane", 
+       "c": "Thermometer", 
+       "d": "Anemometer", 
+       "answer": "Anemometer"
+    }
+  
+  ]
+}
