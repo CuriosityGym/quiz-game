@@ -1,3 +1,7 @@
+#!/usr/bin/env python
+
+import RPi.GPIO as GPIO
+import SimpleMFRC522
 import pyttsx3;
 import json
 import requests
@@ -12,16 +16,14 @@ player3=0
 player4=0
 winner =""
 
+reader = SimpleMFRC522.SimpleMFRC522()
+
 f = open("quizGameRules.txt",'r')
 gameRules = f.read()
 engine.say(gameRules)
 engine.runAndWait()
 f.close()
-'''
-response = requests.get("https://jsonplaceholder.typicode.com/todos")
-todos = json.loads(response.text)
-print(todos)
-'''
+
 '''
 quizQuestions = {}  
 quizQuestions['questionBank'] = []  
@@ -59,11 +61,18 @@ quizQuestions['questionBank'].append({
     'answer':'all of them'
 })
 '''
-'''
-with open('quizQuestions.json', 'w') as outfile:  
-    json.dump(quizQuestions, outfile)
-'''
 
+#with open('quizQuestions.json', 'w') as outfile:  
+#    json.dump(quizQuestions, outfile)
+ 
+def answerInput():
+    try:
+        id, text = reader.read()
+        print(id)
+        print(text)
+    finally:
+        GPIO.cleanup()
+    return text
 def updateScore(playerNum):
     if(playerNum == " player 1"):
         global player1
@@ -77,7 +86,7 @@ def updateScore(playerNum):
     if(playerNum == " player 4"):
         global player4
         player4 += 10
-    
+
 def winner(p1,p2,p3,p4):
     global winner
     if p1>p2 and p1 > p3 and p1>p4:
@@ -125,12 +134,14 @@ def winner(p1,p2,p3,p4):
     elif p3 == p4:
         print("its tie")
         return False
-        
+
 with open('quizQuestions.json') as json_file:
     data = json.load(json_file)
     i=0
-    rounds = 0
+    rounds = 1
     for q in data['questionBank']:
+        engine.say('Round' + str(rounds))
+        print("Round " + str(rounds))
         engine.say("Question for " + players[i])
         print('Question is: ' + q['question'])
         engine.say('Question is: ' + q['question'])
@@ -143,21 +154,27 @@ with open('quizQuestions.json') as json_file:
         print('option D: ' + q['d'])
         engine.say('option D: ' + q['d'])
         engine.runAndWait()
-        ans = input("enter your answer :")
-        
+        print("Enter your answer: ")
+        #ans = raw_input("enter your answer :")
+        ans = answerInput()
+        print(ans[2])
+        # id, text = reader.read()
+        # ans = text
         print('answer is : ' + q['answer'])
-        if(ans == 'a'):
+        if(ans[2] == 'a' or ans[2] == 'A'):
            realAns = q['a']
-        if(ans == 'b'):
+        if(ans == 'b' or ans[2]== 'B'):
            realAns = q['b']
-        if(ans == 'c'):
+        if(ans == 'c' or ans[2]=='C'):
            realAns = q['c']
-        if(ans == 'd'):
+        if(ans == 'd' or ans[2]=='D'):
            realAns = q['d']   
         engine.say('answer is : ' + q['answer'])
-        if(realAns == q['answer']):
+        if(realAns == q['answer'] and str(i+1) == ans[1]):
            engine.say('Your answer is correct, 10 pointes to '+ players[i])
            updateScore(players[i])
+        elif(realAns == q['answer'] and (str(i+1) != ans[1])):
+           engine.say('Your answer is right but player ' + str(i+1) + 'did not give this answer. No points to player'+ str(i+1))
         else:
             engine.say('Your answer is wrong')
         print(player1)
@@ -174,13 +191,17 @@ with open('quizQuestions.json') as json_file:
             engine.say('Player 3 '+ str(player3) + ' points.')
             engine.say('Player 4 '+ str(player4) + ' points.')
         engine.runAndWait()
-        if rounds==3:
+        if rounds==4:
             engine.say('All rounds are over ')
+            print("All rounds are over ")
             gameOver = winner(player1,player2,player3,player4)
             if(gameOver == True):    
                engine.say("Winner is "+ winner)
+               print("Winner is" + winner)
             if(winner == False):
-                engine.say("Its a tie")
+               engine.say("Its a tie")
+               print("Its a tie")
+            engine.say("Thank you for playing")
             engine.runAndWait()
             
  
