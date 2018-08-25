@@ -15,13 +15,21 @@ player2=0
 player3=0
 player4=0
 winner =""
-
+reply = ""
+rpiHalt = False
+newGame = False
 reader = SimpleMFRC522.SimpleMFRC522()
 
 f = open("quizGameRules.txt",'r')
 gameRules = f.read()
-engine.say(gameRules)
-engine.runAndWait()
+print("do you want to know the rules of the game")
+engine.say("do you want to  know the rules of the game ")
+manual = answerInput()
+if(manual == "yes" or manual == "Yes" or manual == "YES"):
+   engine.say(gameRules)
+   engine.runAndWait()
+if(manual == "no" or manual == "No" or manual == "NO"):
+   print("Manual reading skipped")
 f.close()
 
 '''
@@ -134,9 +142,10 @@ def winner(p1,p2,p3,p4):
     elif p3 == p4:
         print("its tie")
         return False
-def shutdownRpi(halt):
-   if halt == True:
-     print("shutdown rpi")
+
+def shutDownRpi(halt):
+    if(halt == True);
+      print("Shut down rpi safely")
 
 with open('quizQuestions.json') as json_file:
     data = json.load(json_file)
@@ -187,7 +196,7 @@ with open('quizQuestions.json') as json_file:
         i=i+1
         if(i>3):
             i=0
-            engine.say('After ' + str(rounds) + 'rounds score is  ')
+            engine.say('After ' + str(rounds) + ' rounds score is ')
             rounds+=1
             engine.say('Player 1 '+ str(player1) + ' points.')
             engine.say('Player 2 '+ str(player2) + ' points.')
@@ -206,18 +215,15 @@ with open('quizQuestions.json') as json_file:
                print("Its a tie")
             engine.say("Thank you for playing")
             engine.runAndWait()
-            enagine.say("Do you want to play again? ")
-            print("do you want to paly again?")
-            playAgain = answerInput()
-            if(playAgain == "yes" or playAgain == "Yes" or playAgain == "YES"):
-              newGame = True
-            if(playAgain == "NO" or playAgain == "No" or playAgain == "no"):
-              newGame = Fasle
-              engine.say("Are you sure you want to end the game")
-              playAgain = answerInput()
-              if(playAgain == "yes" or playAgain == "Yes" or playAgain == "YES"): 
-                 rpiHalt = True
-              if(playAgain == "no" or playAgain == "No" or playAgain == "NO"):
-                engine.say("Do you want to play Agian")
-                engine.runAndWait()
+            engine.say('Do you want to play again?')
+            reply = answerInpu()
+            print('Reply: ' + reply)
+            if(reply == "yes" or reply == "YES" or reply == "Yes"):
+               rpiHalt = True
+               engine.say("bye bye")
+               engine.runAndWait()
+            if(reply == "NO" or reply == "No" or reply == "no"):
+               newGame = True
+               engine.say("OK, New Game will start in a minuit")
+               engine.runAndWait()
 
