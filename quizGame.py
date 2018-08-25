@@ -5,6 +5,8 @@ import SimpleMFRC522
 import pyttsx3;
 import json
 import requests
+import time
+
 engine = pyttsx3.init()
 rate = engine.getProperty('rate')
 engine.setProperty('rate', rate-40)
@@ -70,9 +72,16 @@ def answerInput():
         id, text = reader.read()
         print(id)
         print(text)
+    except IndexError as e:
+        print(e)
+        engine.say("problem in reading your tag, please enter your answer again")
+        engine.runAndWait()
     finally:
         GPIO.cleanup()
+    time.sleep(3)    
     return text
+
+
 def updateScore(playerNum):
     if(playerNum == " player 1"):
         global player1
@@ -134,6 +143,7 @@ def winner(p1,p2,p3,p4):
     elif p3 == p4:
         print("its tie")
         return False
+
 def shutdownRpi(halt):
    if halt == True:
      print("shutdown rpi")
