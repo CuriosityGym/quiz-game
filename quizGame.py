@@ -15,7 +15,7 @@ player2=0
 player3=0
 player4=0
 winner =""
-
+points =10
 reader = SimpleMFRC522.SimpleMFRC522()
 
 f = open("quizGameRules.txt",'r')
@@ -76,16 +76,16 @@ def answerInput():
 def updateScore(playerNum):
     if(playerNum == " player 1"):
         global player1
-        player1 += 10
+        player1 += points
     if(playerNum == " player 2"):
         global player2
-        player2 += 10
+        player2 += points
     if(playerNum == " player 3"):
         global player3
-        player3 += 10
+        player3 += points
     if(playerNum == " player 4"):
         global player4
-        player4 += 10
+        player4 += points
 
 def winner(p1,p2,p3,p4):
     global winner
@@ -156,11 +156,17 @@ with open('quizQuestions.json') as json_file:
         engine.say('option C: ' + q['c'])
         print('option D: ' + q['d'])
         engine.say('option D: ' + q['d'])
+        engine.say(players[i] + 'Enter your answer ')
         engine.runAndWait()
         print("Enter your answer: ")
         #ans = raw_input("enter your answer :")
         ans = answerInput()
         print(ans[2])
+        engine.say("You have selected option " + ans[2])
+        engine.say("Are you sure, Do you want to lock option " + ans [2])
+        engine.runAndWait()
+        ans = answerInput()
+        
         # id, text = reader.read()
         # ans = text
         print('answer is : ' + q['answer'])
