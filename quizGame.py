@@ -76,16 +76,17 @@ quizQuestions['questionBank'].append({
 
 def answerInput():
     try:
-        #t0 = time.clock()
-        id, text = reader.read()
-        print(id)
-        print(text)
+        t0 = time.clock()
+        while(time.clock()-t0 > 10):
+            id, text = reader.read()
+            print(id)
+            print(text)
         #if (time.clock() -t0 > 15):
          #   text ='na'
-    except IndexError as e:
-        print(e)
-        engine.say("problem in reading your tag, please enter your answer again")
-        engine.runAndWait()
+    #except IndexError as e:
+     #   print(e)
+     #   engine.say("problem in reading your tag, please enter your answer again")
+     #   engine.runAndWait()
     finally:
         GPIO.cleanup()
         
