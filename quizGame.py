@@ -161,7 +161,7 @@ engine.say("Player 1  please place your card")
 engine.runAndWait()
 t0=time.clock()
 playerEntry = answerInput()
-if(playerEntry is in playerInputs):
+if(playerEntry in playerInputs):
     noOfPlayers +=1
     engine.say('player ' str(noOfPlayers) + 'added')
     if(playerEntry[0:2] == "P1"):
