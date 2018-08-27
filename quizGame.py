@@ -76,7 +76,7 @@ quizQuestions['questionBank'].append({
 
 def answerInput():
     try:
-        t0 = time.clock()
+        #t0 = time.clock()
         id, text = reader.read()
         print(id)
         print(text)
