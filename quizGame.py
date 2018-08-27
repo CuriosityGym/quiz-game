@@ -23,6 +23,8 @@ reader = SimpleMFRC522.SimpleMFRC522()
 noOfPlayers=0
 playerEntry=""
 startGame = False
+playersConfirmed=False
+
 f = open("quizGameRules.txt",'r')
 gameRules = f.read()
 engine.say(gameRules)
