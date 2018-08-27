@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+import _thread
 import RPi.GPIO as GPIO
 import SimpleMFRC522
 import pyttsx3;
@@ -75,21 +75,20 @@ quizQuestions['questionBank'].append({
 
 
 def answerInput():
-    text = ""
-    t0 = time.clock()
-    while(time.clock()-t0 > 10):
-        try:
-            id, text = reader.read()
-            print(id)
-            print(text)
-            #if (time.clock() -t0 > 15):
-             #   text ='na'
-        #except IndexError as e:
-         #   print(e)
-         #   engine.say("problem in reading your tag, please enter your answer again")
-         #   engine.runAndWait()
-        finally:
-            GPIO.cleanup()
+    try:
+        #t0 = time.clock()
+        id, global playerEntry = reader.read()
+        
+        print(id)
+        print(text)
+        #if (time.clock() -t0 > 15):
+         #   text ='na'
+    #except IndexError as e:
+     #   print(e)
+     #   engine.say("problem in reading your tag, please enter your answer again")
+     #   engine.runAndWait()
+    finally:
+        GPIO.cleanup()
         
     return text
 
@@ -160,6 +159,7 @@ def shutdownRpi(halt):
    if halt == True:
      print("shutdown rpi")
 
+_thread.start(answerInput,())
 #Ask for no of players
 engine.say("How many players are there? ")
 engine.runAndWait()
