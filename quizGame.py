@@ -12,6 +12,7 @@ rate = engine.getProperty('rate')
 engine.setProperty('rate', rate-40)
 realAns = ""
 players = [" player 1"," player 2"," player 3"," player 4"]
+playerInputs = ["P1A","P1B","P1C","P1D","P2A","P2B","P2C","P2D","P3A","P3B","P3C","P3D","P4A","P4B","P4C","P4D"]
 player1=0
 player2=0
 player3=0
@@ -19,7 +20,9 @@ player4=0
 winner =""
 points =10
 reader = SimpleMFRC522.SimpleMFRC522()
-
+noOfPlayers=0
+playerEntry=""
+startGame = False
 f = open("quizGameRules.txt",'r')
 gameRules = f.read()
 engine.say(gameRules)
@@ -66,7 +69,9 @@ quizQuestions['questionBank'].append({
 
 #with open('quizQuestions.json', 'w') as outfile:  
 #    json.dump(quizQuestions, outfile)
- 
+
+
+
 def answerInput():
     try:
         id, text = reader.read()
@@ -78,7 +83,7 @@ def answerInput():
         engine.runAndWait()
     finally:
         GPIO.cleanup()
-    time.sleep(3)    
+        
     return text
 
 
@@ -148,92 +153,137 @@ def shutdownRpi(halt):
    if halt == True:
      print("shutdown rpi")
 
-with open('quizQuestions.json') as json_file:
-    data = json.load(json_file)
-    i=0
-    rounds = 1
-    for q in data['questionBank']:
-        engine.say('Round' + str(rounds))
-        print("Round " + str(rounds))
-        engine.say("Question for " + players[i])
-        print('Question is: ' + q['question'])
-        engine.say('Question is: ' + q['question'])
-        print('option A: ' + q['a'])
-        engine.say('option A: ' + q['a'])
-        print('option B: ' + q['b'])
-        engine.say('option B: ' + q['b'])
-        print('option C: ' + q['c'])
-        engine.say('option C: ' + q['c'])
-        print('option D: ' + q['d'])
-        engine.say('option D: ' + q['d'])
-        engine.say(players[i] + 'Enter your answer ')
-        engine.runAndWait()
-        print("Enter your answer: ")
-        #ans = raw_input("enter your answer :")
-        ans = answerInput()
-        print(ans[2])
-        engine.say("You have selected option " + ans[2])
-        engine.say("Are you sure, Do you want to lock option " + ans [2])
-        engine.runAndWait()
-        ans = answerInput()
-        
-        # id, text = reader.read()
-        # ans = text
-        print('answer is : ' + q['answer'])
-        if(ans[2] == 'a' or ans[2] == 'A'):
-           realAns = q['a']
-        if(ans == 'b' or ans[2]== 'B'):
-           realAns = q['b']
-        if(ans == 'c' or ans[2]=='C'):
-           realAns = q['c']
-        if(ans == 'd' or ans[2]=='D'):
-           realAns = q['d']   
-        engine.say('answer is : ' + q['answer'])
-        if(realAns == q['answer'] and str(i+1) == ans[1]):
-           engine.say('Your answer is correct, 10 pointes to '+ players[i])
-           updateScore(players[i])
-        elif(realAns == q['answer'] and (str(i+1) != ans[1])):
-           engine.say('Your answer is right but player ' + str(i+1) + 'did not give this answer. No points to player'+ str(i+1))
-        else:
-            engine.say('Your answer is wrong')
-        print(player1)
-        print(player2)
-        print(player3)
-        print(player4)
-        i=i+1
-        if(i>3):
-            i=0
-            engine.say('After ' + str(rounds) + 'rounds score is  ')
-            rounds+=1
-            engine.say('Player 1 '+ str(player1) + ' points.')
-            engine.say('Player 2 '+ str(player2) + ' points.')
-            engine.say('Player 3 '+ str(player3) + ' points.')
-            engine.say('Player 4 '+ str(player4) + ' points.')
-        engine.runAndWait()
-        if rounds==4:
-            engine.say('All rounds are over ')
-            print("All rounds are over ")
-            gameOver = winner(player1,player2,player3,player4)
-            if(gameOver == True):    
-               engine.say("Winner is "+ winner)
-               print("Winner is" + winner)
-            if(winner == False):
-               engine.say("Its a tie")
-               print("Its a tie")
-            engine.say("Thank you for playing")
+#Ask for no of players
+engine.say("How many players are there? ")
+engine.runAndWait()
+time.sleep(1)
+engine.say("Player 1  please place your card")
+engine.runAndWait()
+t0=time.clock()
+playerEntry = answerInput()
+if(playerEntry is in playerInputs):
+    noOfPlayers +=1
+    engine.say('player ' str(noOfPlayers) + 'added')
+    if(playerEntry[0:2] == "P1"):
+       playerInputs.remove('P1A')
+       playerInputs.remove('P1B')
+       playerInputs.remove('P1C')
+       playerInputs.remove('P1D')
+    if(playerEntry[0:2] == "P2"):
+       playerInputs.remove('P2A')
+       playerInputs.remove('P2B')
+       playerInputs.remove('P2C')
+       playerInputs.remove('P2D')
+    if(playerEntry[0:2] == "P3"):
+       playerInputs.remove('P3A')
+       playerInputs.remove('P3B')
+       playerInputs.remove('P3C')
+       playerInputs.remove('P3D')
+    if(playerEntry[0:2] == "P4"):
+       playerInputs.remove('P4A')
+       playerInputs.remove('P4B')
+       playerInputs.remove('P4C')
+       playerInputs.remove('P4D')   
+if(time.clock() - t0 > 10):
+    engine.say("No input from player")
+    if(noOfPlayers >=2):
+       engine.say('are you sure you ewant continue with ' str(noOfPlayers) + 'players')
+       engine.say('player 1 please place your card to start the game')
+       engine.runAndWait()
+       confirm - answerInput()
+       if(confirm[0:2] == 'P1')
+          startGame = True 
+    if(noOfPlayers <= 1):
+        engine.say("You need minimum 2 players to start the game, go make some friends")
+        startGame = False
+
+if(startGame == True):
+    with open('quizQuestions.json') as json_file:
+        data = json.load(json_file)
+        i=0
+        rounds = 1
+        for q in data['questionBank']:
+            engine.say('Round' + str(rounds))
+            print("Round " + str(rounds))
+            engine.say("Question for " + players[i])
+            print('Question is: ' + q['question'])
+            engine.say('Question is: ' + q['question'])
+            print('option A: ' + q['a'])
+            engine.say('option A: ' + q['a'])
+            print('option B: ' + q['b'])
+            engine.say('option B: ' + q['b'])
+            print('option C: ' + q['c'])
+            engine.say('option C: ' + q['c'])
+            print('option D: ' + q['d'])
+            engine.say('option D: ' + q['d'])
+            engine.say(players[i] + 'Enter your answer ')
             engine.runAndWait()
-            enagine.say("Do you want to play again? ")
-            print("do you want to paly again?")
-            playAgain = answerInput()
-            if(playAgain == "yes" or playAgain == "Yes" or playAgain == "YES"):
-              newGame = True
-            if(playAgain == "NO" or playAgain == "No" or playAgain == "no"):
-              newGame = Fasle
-              engine.say("Are you sure you want to end the game")
-              playAgain = answerInput()
-              if(playAgain == "yes" or playAgain == "Yes" or playAgain == "YES"): 
-                 rpiHalt = True
-              if(playAgain == "no" or playAgain == "No" or playAgain == "NO"):
-                engine.say("Do you want to play Agian")
+            print("Enter your answer: ")
+            #ans = raw_input("enter your answer :")
+            ans = answerInput()
+            print(ans[2])
+            engine.say("You have selected option " + ans[2])
+            engine.say("Are you sure, Do you want to lock option " + ans [2])
+            engine.runAndWait()
+            ans = answerInput()
+            time.sleep(1)
+            # id, text = reader.read()
+            # ans = text
+            print('answer is : ' + q['answer'])
+            if(ans[2] == 'a' or ans[2] == 'A'):
+               realAns = q['a']
+            if(ans == 'b' or ans[2]== 'B'):
+               realAns = q['b']
+            if(ans == 'c' or ans[2]=='C'):
+               realAns = q['c']
+            if(ans == 'd' or ans[2]=='D'):
+               realAns = q['d']   
+            engine.say('answer is : ' + q['answer'])
+            if(realAns == q['answer'] and str(i+1) == ans[1]):
+               engine.say('Your answer is correct, 10 pointes to '+ players[i])
+               updateScore(players[i])
+            elif(realAns == q['answer'] and (str(i+1) != ans[1])):
+               engine.say('Your answer is right but player ' + str(i+1) + 'did not give this answer. No points to player'+ str(i+1))
+            else:
+                engine.say('Your answer is wrong')
+            print(player1)
+            print(player2)
+            print(player3)
+            print(player4)
+            i=i+1
+            if(i>3):
+                i=0
+                engine.say('After ' + str(rounds) + 'rounds score is  ')
+                rounds+=1
+                engine.say('Player 1 '+ str(player1) + ' points.')
+                engine.say('Player 2 '+ str(player2) + ' points.')
+                engine.say('Player 3 '+ str(player3) + ' points.')
+                engine.say('Player 4 '+ str(player4) + ' points.')
+            engine.runAndWait()
+            if rounds==4:
+                engine.say('All rounds are over ')
+                print("All rounds are over ")
+                gameOver = winner(player1,player2,player3,player4)
+                if(gameOver == True):    
+                   engine.say("Winner is "+ winner)
+                   print("Winner is" + winner)
+                if(winner == False):
+                   engine.say("Its a tie")
+                   print("Its a tie")
+                engine.say("Thank you for playing")
                 engine.runAndWait()
+                enagine.say("Do you want to play again? ")
+                print("do you want to paly again?")
+                playAgain = answerInput()
+                if(playAgain == "yes" or playAgain == "Yes" or playAgain == "YES"):
+                  newGame = True
+                if(playAgain == "NO" or playAgain == "No" or playAgain == "no"):
+                  newGame = Fasle
+                  engine.say("Are you sure you want to end the game")
+                  playAgain = answerInput()
+                  if(playAgain == "yes" or playAgain == "Yes" or playAgain == "YES"): 
+                     rpiHalt = True
+                  if(playAgain == "no" or playAgain == "No" or playAgain == "NO"):
+                    engine.say("Do you want to play Agian")
+                    engine.runAndWait()
 
