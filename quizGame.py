@@ -167,7 +167,7 @@ engine.runAndWait()
 while(playersConfirmed != True):
     t0=time.clock()
     print(round(t0))
-    while(time.clock(0 - t0 > 15):
+    while(time.clock(0) - t0 > 15):
         playerEntry = answerInput()
         print(playerEntry[0:2])
         if(playerEntry in playerInputs):
