@@ -80,8 +80,8 @@ def answerInput():
         id, text = reader.read()
         print(id)
         print(text)
-        if (time.clock() -t0 > 15):
-            text ='na'
+        #if (time.clock() -t0 > 15):
+         #   text ='na'
     except IndexError as e:
         print(e)
         engine.say("problem in reading your tag, please enter your answer again")
