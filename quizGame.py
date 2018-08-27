@@ -196,7 +196,7 @@ while(playersConfirmed != True):
                playerInputs.remove('P4B')
                playerInputs.remove('P4C')
                playerInputs.remove('P4D')
-        print(playerInputs)
+            print(playerInputs)
     print(round(time.clock() - t0))
     if(round(time.clock() - t0) > 15):
         engine.say("No input from player")
