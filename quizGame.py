@@ -191,7 +191,7 @@ if(time.clock() - t0 > 10):
        engine.say('player 1 please place your card to start the game')
        engine.runAndWait()
        confirm - answerInput()
-       if(confirm[0:2] == 'P1')
+       if(confirm[0:2] == 'P1'):
           startGame = True 
     if(noOfPlayers <= 1):
         engine.say("You need minimum 2 players to start the game, go make some friends")
