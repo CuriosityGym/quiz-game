@@ -163,7 +163,7 @@ t0=time.clock()
 playerEntry = answerInput()
 if(playerEntry in playerInputs):
     noOfPlayers +=1
-    engine.say('player ' str(noOfPlayers) + 'added')
+    engine.say('player ' + str(noOfPlayers) + 'added')
     if(playerEntry[0:2] == "P1"):
        playerInputs.remove('P1A')
        playerInputs.remove('P1B')
@@ -187,7 +187,7 @@ if(playerEntry in playerInputs):
 if(time.clock() - t0 > 10):
     engine.say("No input from player")
     if(noOfPlayers >=2):
-       engine.say('are you sure you ewant continue with ' str(noOfPlayers) + 'players')
+       engine.say('are you sure you ewant continue with ' + str(noOfPlayers) + 'players')
        engine.say('player 1 please place your card to start the game')
        engine.runAndWait()
        confirm - answerInput()
