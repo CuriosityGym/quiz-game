@@ -170,6 +170,7 @@ while(playersConfirmed != True):
     while(time.clock() - t0 < 15):
         playerEntry = answerInput()
         print(playerEntry[0:2])
+        print(time.clock() - t0)
         if(playerEntry in playerInputs):
             noOfPlayers +=1
             engine.say('player ' + str(noOfPlayers) + 'added')
