@@ -75,6 +75,7 @@ quizQuestions['questionBank'].append({
 
 
 def answerInput():
+    text = ""
     try:
         t0 = time.clock()
         while(time.clock()-t0 > 10):
