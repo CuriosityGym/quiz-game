@@ -77,10 +77,10 @@ quizQuestions['questionBank'].append({
 def answerInput():
     try:
         #t0 = time.clock()
-        id, global playerEntry = reader.read()
+        global playerEntry = reader.read()
         
-        print(id)
-        print(text)
+        #print(id)
+        print(playerEntry)
         #if (time.clock() -t0 > 15):
          #   text ='na'
     #except IndexError as e:
