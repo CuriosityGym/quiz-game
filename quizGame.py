@@ -16,6 +16,7 @@ player1=0
 player2=0
 player3=0
 player4=0
+playerScores=[0,0,0,0]
 winner =""
 points =10
 reader = SimpleMFRC522.SimpleMFRC522()
@@ -96,7 +97,11 @@ def answerInput():
     return text
 
 
-def updateScore(playerNum):
+def updateScore(playerNum, increment, numberOfPlayers):
+    for i in range(0,numberOfPlayers):
+        if(playerNum==players[i]):
+            playerScores[i] += increment
+'''
     if(playerNum == " player 1"):
         global player1
         player1 += points
@@ -109,7 +114,7 @@ def updateScore(playerNum):
     if(playerNum == " player 4"):
         global player4
         player4 += points
-
+'''
 def winner(p1,p2,p3,p4):
     global winner
     if p1>p2 and p1 > p3 and p1>p4:
@@ -162,26 +167,7 @@ def shutdownRpi(halt):
    if halt == True:
      print("shutdown rpi")
 
-def announceScore(x):
-    if(x==noOfPlayers):
-        i=0
-        engine.say('After ' + str(rounds) + 'rounds score is  ')
-        rounds+=1
-        if(noOfPlayers == 2):
-            engine.say('Player 1 '+ str(player1) + ' points.')
-            engine.say('Player 2 '+ str(player2) + ' points.')
-            engine.runAndWait()
-        if(noOfPlayers == 2):
-            engine.say('Player 1 '+ str(player1) + ' points.')
-            engine.say('Player 2 '+ str(player2) + ' points.')
-            engine.say('Player 3 '+ str(player3) + ' points.')
-            engine.runAndWait()
-        if(noOfPlayers == 2):
-            engine.say('Player 1 '+ str(player1) + ' points.')
-            engine.say('Player 2 '+ str(player2) + ' points.')
-            engine.say('Player 3 '+ str(player3) + ' points.')
-            engine.say('Player 4 '+ str(player4) + ' points.')
-            engine.runAndWait()
+
 readRules()
 
 #Ask for no of players
@@ -349,7 +335,7 @@ if(startGame == True):
                 engine.say('answer is : ' + q['answer'])
                 if(realAns == q['answer'] and str(i+1) == ans[1]):
                    engine.say('Your answer is correct, 10 pointes to '+ players[i])
-                   updateScore(players[i])
+                   updateScore(players[i],points,noOfPlayers)
                 elif(realAns == q['answer'] and (str(i+1) != ans[1])):
                    engine.say('Your answer is right but player ' + str(i+1) + 'did not give this answer. No points to player'+ str(i+1))
                 else:
@@ -360,7 +346,14 @@ if(startGame == True):
                 print(player4)
                 i=i+1
 
-            announceScore(i)
+            if(i==noOfPlayers):
+                i=0
+                engine.say('After ' + str(rounds) + 'rounds score is  ')
+                rounds+=1
+                for x in range(0,noOfPlayers):
+                    engine.say('Player '+str(i) + str(player1) + ' points.')
+                    engine.runAndWait()
+                
             if rounds==4:
                 print(rounds)
                 engine.say('All rounds are over ')
