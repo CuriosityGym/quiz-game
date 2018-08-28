@@ -169,7 +169,7 @@ time.sleep(1)
 engine.say("Player 1  please place your card")
 engine.runAndWait()
 while(playersConfirmed != True):
-    #t0=time.clock()
+    t0=time.clock()
     #print(round(t0))
     #while(time.clock() - t0 < 15):
     playerEntry = answerInput()
@@ -180,6 +180,7 @@ while(playersConfirmed != True):
         engine.say('player ' + str(noOfPlayers) + 'added')
         engine.say('player ' + str(noOfPlayers + 1) + 'please place your card')
         engine.runAndWait()
+        t0=time.clock()
         if(playerEntry[0:2] == "P1"):
            playerInputs.remove('P1A')
            playerInputs.remove('P1B')
