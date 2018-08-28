@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import thread
+import thread import start_new_thread
 import RPi.GPIO as GPIO
 import SimpleMFRC522
 import pyttsx3;
@@ -160,7 +160,7 @@ def shutdownRpi(halt):
    if halt == True:
      print("shutdown rpi")
 
-thread.start(answerInput,())
+start_new_thread(answerInput,())
 #Ask for no of players
 engine.say("How many players are there? ")
 engine.runAndWait()
