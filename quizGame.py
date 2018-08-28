@@ -85,22 +85,17 @@ def answerInput():
         
         print(id)
         print(text)
-        #if (time.clock() -t0 > 15):
-         #   text ='na'
-    #except IndexError as e:
-     #   print(e)
-     #   engine.say("problem in reading your tag, please enter your answer again")
-     #   engine.runAndWait()
+    
     finally:
         GPIO.cleanup()
         
     return text
 
-
+#updateScore(players[i],points,noOfPlayers)
 def updateScore(playerNum, increment, numberOfPlayers):
     for i in range(0,numberOfPlayers):
         if(playerNum==players[i]):
-            playerScores[i] += increment
+            playerScores[i]= playerScores[i]+10
 '''
     if(playerNum == " player 1"):
         global player1
@@ -319,7 +314,7 @@ if(startGame == True):
                 engine.runAndWait()
                 ans = answerInput()
                 time.sleep(1)
-                engine.say("Your final answer is "+ans[2])
+                engine.say("Your final answer is option"+ans[2])
                 engine.runAndWait() 
                 # id, text = reader.read()
                 # ans = text
@@ -340,10 +335,10 @@ if(startGame == True):
                    engine.say('Your answer is right but player ' + str(i+1) + 'did not give this answer. No points to player'+ str(i+1))
                 else:
                     engine.say('Your answer is wrong')
-                print(player1)
-                print(player2)
-                print(player3)
-                print(player4)
+                
+                for y in playerScores:
+                    print(i)
+               
                 i=i+1
 
             if(i==noOfPlayers):
