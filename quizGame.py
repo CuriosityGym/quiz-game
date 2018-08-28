@@ -245,6 +245,8 @@ while(playersConfirmed != True):
                 engine.runAndWait()'''
 
 if(startGame == True):
+    engine.say("Welcome all " + str(noOfPlayers) + " players, All the best, Lets play ")
+    engine.runAndWait()
     with open('quizQuestions.json') as json_file:
         data = json.load(json_file)
         i=0
@@ -268,7 +270,7 @@ if(startGame == True):
             print("Enter your answer: ")
             #ans = raw_input("enter your answer :")
             ans = answerInput()
-            print(ans[2])
+            
             if(ans == "EndGame"):
                 print("Confirm??")
                 enagine.say("Are you sure you want to end game, to end game place end game card again,  if you place that card by mistake then place card of any player to continue the game")
@@ -278,7 +280,11 @@ if(startGame == True):
                    areYousure = True
             if(ans == "GameRules"):
                 readRules()
-            else:    
+                enagine.say("Enter you answer")
+                engine.runAndWait()
+                ans = answerInput()
+            elif(ans[0:2] == "P1" or ans[0:2] == "P2" or ans[0:2] == "P3" or ans[0:2] == "P4":
+                print(ans[2])
                 engine.say("You have selected option " + ans[2])
                 engine.say("Are you sure, Do you want to lock option " + ans [2])
                 engine.runAndWait()
@@ -308,7 +314,7 @@ if(startGame == True):
                 print(player3)
                 print(player4)
                 i=i+1
-                if(i>noOfPlayers):
+                if(i==noOfPlayers):
                     i=0
                     engine.say('After ' + str(rounds) + 'rounds score is  ')
                     rounds+=1
