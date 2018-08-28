@@ -77,11 +77,11 @@ quizQuestions['questionBank'].append({
 def answerInput():
     try:
         #t0 = time.clock()
-        global playerEntry
-        id, playerEntry = reader.read()
+       # global playerEntry
+        id, text = reader.read()
         
         print(id)
-        print(playerEntry)
+        print(text)
         #if (time.clock() -t0 > 15):
          #   text ='na'
     #except IndexError as e:
@@ -91,7 +91,7 @@ def answerInput():
     finally:
         GPIO.cleanup()
         
-    return playerEntry
+    return text
 
 
 def updateScore(playerNum):
@@ -169,39 +169,39 @@ time.sleep(1)
 engine.say("Player 1  please place your card")
 engine.runAndWait()
 while(playersConfirmed != True):
-    t0=time.clock()
-    print(round(t0))
-    while(time.clock() - t0 < 15):
-        #playerEntry = answerInput()
-        print(playerEntry[0:2])
-        print(time.clock() - t0)
-        if(playerEntry in playerInputs):
-            noOfPlayers +=1
-            engine.say('player ' + str(noOfPlayers) + 'added')
-            engine.say('player ' + str(noOfPlayers + 1) + 'please place your card')
-            engine.runAndWait()
-            if(playerEntry[0:2] == "P1"):
-               playerInputs.remove('P1A')
-               playerInputs.remove('P1B')
-               playerInputs.remove('P1C')
-               playerInputs.remove('P1D')
-            if(playerEntry[0:2] == "P2"):
-               playerInputs.remove('P2A')
-               playerInputs.remove('P2B')
-               playerInputs.remove('P2C')
-               playerInputs.remove('P2D')
-            if(playerEntry[0:2] == "P3"):
-               playerInputs.remove('P3A')
-               playerInputs.remove('P3B')
-               playerInputs.remove('P3C')
-               playerInputs.remove('P3D')
-            if(playerEntry[0:2] == "P4"):
-               playerInputs.remove('P4A')
-               playerInputs.remove('P4B')
-               playerInputs.remove('P4C')
-               playerInputs.remove('P4D')
-            print(playerInputs)
-    print(round(time.clock() - t0))
+    #t0=time.clock()
+    #print(round(t0))
+    #while(time.clock() - t0 < 15):
+    playerEntry = answerInput()
+    print(playerEntry[0:2])
+    #print(time.clock() - t0)
+    if(playerEntry in playerInputs):
+        noOfPlayers +=1
+        engine.say('player ' + str(noOfPlayers) + 'added')
+        engine.say('player ' + str(noOfPlayers + 1) + 'please place your card')
+        engine.runAndWait()
+        if(playerEntry[0:2] == "P1"):
+           playerInputs.remove('P1A')
+           playerInputs.remove('P1B')
+           playerInputs.remove('P1C')
+           playerInputs.remove('P1D')
+        if(playerEntry[0:2] == "P2"):
+           playerInputs.remove('P2A')
+           playerInputs.remove('P2B')
+           playerInputs.remove('P2C')
+           playerInputs.remove('P2D')
+        if(playerEntry[0:2] == "P3"):
+           playerInputs.remove('P3A')
+           playerInputs.remove('P3B')
+           playerInputs.remove('P3C')
+           playerInputs.remove('P3D')
+        if(playerEntry[0:2] == "P4"):
+           playerInputs.remove('P4A')
+           playerInputs.remove('P4B')
+           playerInputs.remove('P4C')
+           playerInputs.remove('P4D')
+        print(playerInputs)
+    #print(round(time.clock() - t0))
     if(round(time.clock() - t0) > 15):
         engine.say("No input from player")
         engine.runAndWait()
