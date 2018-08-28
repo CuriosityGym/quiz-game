@@ -173,6 +173,7 @@ while(playersConfirmed != True):
     #print(round(t0))
     #while(time.clock() - t0 < 15):
     playerEntry = answerInput()
+    prevEntry = playerEntry
     print(playerEntry[0:2])
     #print(time.clock() - t0)
     if(playerEntry[0:3] in playerInputs):
@@ -208,7 +209,7 @@ while(playersConfirmed != True):
            engine.say("Do you want to play with 2 players then player 1 place your card if want to add more players then player 2 place your card")
            engine.runAndWait()
            playerEntry = answerInput()
-           if(playerEntry[0:2] == "P2"):
+           if(playerEntry == prevEntry):
                print("")
            if(playerEntry[0:2] == "P1"):
                playersConfirmed=True
@@ -217,7 +218,7 @@ while(playersConfirmed != True):
            engine.say("Do you want to play with 3 players then player 1 place your card if want to add more players then player 3 place your card")
            engine.runAndWait()
            playerEntry = answerInput()
-           if(playerEntry[0:2] == "P3"):
+           if(playerEntry == prevEntry):
                print("")
            if(playerEntry[0:2] == "P1"):
                playersConfirmed=True
@@ -226,15 +227,15 @@ while(playersConfirmed != True):
            engine.say("Do you want to play with 3 players then player 1 place your card if want to add more players then player 3 place your card")
            engine.runAndWait()
            playerEntry = answerInput()
-           if(playerEntry[0:2] == "P4"):
+           if(playerEntry == prevEntry):
                print("")
            if(playerEntry[0:2] == "P1"):
                playersConfirmed=True
                startGame =True
-        if(noOfPlayers <= 1):
+        '''if(noOfPlayers <= 1):
             engine.say("You need minimum 2 players to start the game, go make some friends")
             startGame = False
-            engine.runAndWait()
+            engine.runAndWait()'''
 
 if(startGame == True):
     with open('quizQuestions.json') as json_file:
