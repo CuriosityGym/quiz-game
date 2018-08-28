@@ -169,7 +169,7 @@ time.sleep(1)
 engine.say("Player 1  please place your card")
 engine.runAndWait()
 while(playersConfirmed != True):
-    t0=time.clock()
+    #t0=time.clock()
     #print(round(t0))
     #while(time.clock() - t0 < 15):
     playerEntry = answerInput()
@@ -203,17 +203,34 @@ while(playersConfirmed != True):
            playerInputs.remove('P4D')
         print(playerInputs)
     #print(round(time.clock() - t0))
-    if(round(time.clock() - t0) > 15):
-        engine.say("No input from player")
-        engine.runAndWait()
-        if(noOfPlayers >=2):
-           engine.say('are you sure you ewant continue with ' + str(noOfPlayers) + 'players')
-           engine.say('player 1 please place your card to start the game')
+    if(noOfPlayers >= 2):
+        if(noOfPlayers == 2): 
+           engine.say("Do you want to play with 2 players then player 1 place your card if want to add more players then player 2 place your card")
            engine.runAndWait()
-           confirm = answerInput()
-           if(confirm[0:2] == 'P1'):
-              playersConfirmed=True
-              startGame = True 
+           playerEntry = answerInput()
+           if(playerEntry[0:2] == "P2"):
+               print("")
+           if(playerEntry[0:2] == "P1"):
+               playersConfirmed=True
+               startGame =True
+        if(noOfPlayers ==3):
+           engine.say("Do you want to play with 3 players then player 1 place your card if want to add more players then player 3 place your card")
+           engine.runAndWait()
+           playerEntry = answerInput()
+           if(playerEntry[0:2] == "P3"):
+               print("")
+           if(playerEntry[0:2] == "P1"):
+               playersConfirmed=True
+               startGame =True
+        if(noOfPlayers ==4):
+           engine.say("Do you want to play with 3 players then player 1 place your card if want to add more players then player 3 place your card")
+           engine.runAndWait()
+           playerEntry = answerInput()
+           if(playerEntry[0:2] == "P4"):
+               print("")
+           if(playerEntry[0:2] == "P1"):
+               playersConfirmed=True
+               startGame =True
         if(noOfPlayers <= 1):
             engine.say("You need minimum 2 players to start the game, go make some friends")
             startGame = False
