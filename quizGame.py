@@ -179,8 +179,10 @@ while(playersConfirmed != True):
     if(playerEntry[0:3] in playerInputs):
         noOfPlayers +=1
         engine.say('player ' + str(noOfPlayers) + 'added')
-        engine.say('player ' + str(noOfPlayers + 1) + 'please place your card')
-        engine.runAndWait()
+        engine.runAndWait() 
+        if(noOfPlayers == 1):
+           engine.say('player ' + str(noOfPlayers + 1) + 'please place your card')
+           engine.runAndWait()
         t0=time.clock()
         if(playerEntry[0:2] == "P1"):
            playerInputs.remove('P1A')
@@ -204,38 +206,41 @@ while(playersConfirmed != True):
            playerInputs.remove('P4D')
         print(playerInputs)
     #print(round(time.clock() - t0))
-    if(noOfPlayers >= 2):
-        if(noOfPlayers == 2): 
-           engine.say("Do you want to play with 2 players then player 1 place your card if want to add more players then player 2 place your card")
-           engine.runAndWait()
-           playerEntry = answerInput()
-           if(playerEntry == prevEntry):
-               print("")
-           if(playerEntry[0:2] == "P1"):
-               playersConfirmed=True
-               startGame =True
-        if(noOfPlayers ==3):
-           engine.say("Do you want to play with 3 players then player 1 place your card if want to add more players then player 3 place your card")
-           engine.runAndWait()
-           playerEntry = answerInput()
-           if(playerEntry == prevEntry):
-               print("")
-           if(playerEntry[0:2] == "P1"):
-               playersConfirmed=True
-               startGame =True
-        if(noOfPlayers ==4):
-           engine.say("Do you want to play with 3 players then player 1 place your card if want to add more players then player 3 place your card")
-           engine.runAndWait()
-           playerEntry = answerInput()
-           if(playerEntry == prevEntry):
-               print("")
-           if(playerEntry[0:2] == "P1"):
-               playersConfirmed=True
-               startGame =True
-        '''if(noOfPlayers <= 1):
-            engine.say("You need minimum 2 players to start the game, go make some friends")
-            startGame = False
-            engine.runAndWait()'''
+        if(noOfPlayers >= 2):
+            if(noOfPlayers == 2): 
+               engine.say("Do you want to play with 2 players then player 1 place your card if want to add more players then player 2 place your card")
+               engine.runAndWait()
+               playerEntry = answerInput()
+               if(playerEntry[0:2] == prevEntry[0:2]):
+                   engine.say('player ' + str(noOfPlayers + 1) + 'please place your card')
+                   engine.runAndWait()
+               if(playerEntry[0:2] == "P1"):
+                   playersConfirmed=True
+                   startGame =True
+            if(noOfPlayers ==3):
+               engine.say("Do you want to play with 3 players then player 1 place your card if want to add more players then player 3 place your card")
+               engine.runAndWait()
+               playerEntry = answerInput()
+               if(playerEntry[0:2] == prevEntry[0:2]):
+                   engine.say('player ' + str(noOfPlayers + 1) + 'please place your card')
+                   engine.runAndWait()
+               if(playerEntry[0:2] == "P1"):
+                   playersConfirmed=True
+                   startGame =True
+            if(noOfPlayers ==4):
+               engine.say("Do you want to play with 3 players then player 1 place your card if want to add more players then player 3 place your card")
+               engine.runAndWait()
+               playerEntry = answerInput()
+               if(playerEntry[0:2] == prevEntry[0:2]):
+                   engine.say('player ' + str(noOfPlayers + 1) + 'please place your card')
+                   engine.runAndWait()
+               if(playerEntry[0:2] == "P1"):
+                   playersConfirmed=True
+                   startGame =True
+            '''if(noOfPlayers <= 1):
+                engine.say("You need minimum 2 players to start the game, go make some friends")
+                startGame = False
+                engine.runAndWait()'''
 
 if(startGame == True):
     with open('quizQuestions.json') as json_file:
