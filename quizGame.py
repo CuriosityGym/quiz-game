@@ -283,7 +283,7 @@ if(startGame == True):
                 enagine.say("Enter you answer")
                 engine.runAndWait()
                 ans = answerInput()
-            elif(ans[0:2] == "P1" or ans[0:2] == "P2" or ans[0:2] == "P3" or ans[0:2] == "P4":
+            elif(ans[0:2] == "P1" or ans[0:2] == "P2" or ans[0:2] == "P3" or ans[0:2] == "P4"):
                 print(ans[2])
                 engine.say("You have selected option " + ans[2])
                 engine.say("Are you sure, Do you want to lock option " + ans [2])
