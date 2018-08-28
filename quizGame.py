@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from thread import start_new_thread
 import RPi.GPIO as GPIO
 import SimpleMFRC522
 import pyttsx3;
@@ -24,7 +23,8 @@ noOfPlayers=0
 playerEntry=""
 startGame = False
 playersConfirmed=False
-
+validInput = False
+error=False
 
 def readRules():
     f = open("quizGameRules.txt",'r')
@@ -302,40 +302,98 @@ if(startGame == True):
                 enagine.say("Enter you answer")
                 engine.runAndWait()
                 ans = answerInput()
-            try:
-                 if(ans[0:2] == "P1" or ans[0:2] == "P2" or ans[0:2] == "P3" or ans[0:2] == "P4"):
-                    print(ans[2])
-                    engine.say("You have selected option " + ans[2])
-                    engine.say("Are you sure, Do you want to lock option " + ans [2])
-                    engine.runAndWait()
+            else:    
+                try:
+                     if(ans[0:2] == "P1" or ans[0:2] == "P2" or ans[0:2] == "P3" or ans[0:2] == "P4"):
+                        print(ans[2])
+                        validInput = True
+                except IndexError as e:
+                     print(e)
+                     error = True
+                     validInput = False
+                     engine.say("problem in reading your tag, please enter your answer again")
+                     engine.runAndWait()
+                while(error == True):
                     ans = answerInput()
-                    time.sleep(1)
-                    engine.say("Your final answer is "+ans[2])
-                    engine.runAndWait() 
-                    # id, text = reader.read()
-                    # ans = text
-                    print('answer is : ' + q['answer'])
-                    if(ans[2] == 'a' or ans[2] == 'A'):
-                       realAns = q['a']
-                    if(ans == 'b' or ans[2]== 'B'):
-                       realAns = q['b']
-                    if(ans == 'c' or ans[2]=='C'):
-                       realAns = q['c']
-                    if(ans == 'd' or ans[2]=='D'):
-                       realAns = q['d']   
-                    engine.say('answer is : ' + q['answer'])
-                    if(realAns == q['answer'] and str(i+1) == ans[1]):
-                       engine.say('Your answer is correct, 10 pointes to '+ players[i])
-                       updateScore(players[i])
-                    elif(realAns == q['answer'] and (str(i+1) != ans[1])):
-                       engine.say('Your answer is right but player ' + str(i+1) + 'did not give this answer. No points to player'+ str(i+1))
-                    else:
-                        engine.say('Your answer is wrong')
-                    print(player1)
-                    print(player2)
-                    print(player3)
-                    print(player4)
-                    i=i+1
+                    try:
+                        if(ans[0:2] == "P1" or ans[0:2] == "P2" or ans[0:2] == "P3" or ans[0:2] == "P4"):
+                            print(ans[2])
+                            validInput = True
+                            error = False
+                    except IndexError as e:
+                        print(e)
+                        error = True
+                        validInput = False
+                        engine.say("problem in reading your tag, please enter your answer again")
+                        engine.runAndWait()
+                
+            if(validInput == True):
+                engine.say("You have selected option " + ans[2])
+                engine.say("Are you sure, Do you want to lock option " + ans [2])
+                engine.runAndWait()
+                ans = answerInput()
+                time.sleep(1)
+                engine.say("Your final answer is "+ans[2])
+                engine.runAndWait() 
+                # id, text = reader.read()
+                # ans = text
+                print('answer is : ' + q['answer'])
+                if(ans[2] == 'a' or ans[2] == 'A'):
+                   realAns = q['a']
+                if(ans == 'b' or ans[2]== 'B'):
+                   realAns = q['b']
+                if(ans == 'c' or ans[2]=='C'):
+                   realAns = q['c']
+                if(ans == 'd' or ans[2]=='D'):
+                   realAns = q['d']   
+                engine.say('answer is : ' + q['answer'])
+                if(realAns == q['answer'] and str(i+1) == ans[1]):
+                   engine.say('Your answer is correct, 10 pointes to '+ players[i])
+                   updateScore(players[i])
+                elif(realAns == q['answer'] and (str(i+1) != ans[1])):
+                   engine.say('Your answer is right but player ' + str(i+1) + 'did not give this answer. No points to player'+ str(i+1))
+                else:
+                    engine.say('Your answer is wrong')
+                print(player1)
+                print(player2)
+                print(player3)
+                print(player4)
+                i=i+1
+
+            announceScore(i)
+            if rounds==4:
+                engine.say('All rounds are over ')
+                print("All rounds are over ")
+                gameOver = winner(player1,player2,player3,player4)
+                if(gameOver == True):    
+                   engine.say("Winner is "+ winner)
+                   print("Winner is" + winner)
+                if(winner == False):
+                   engine.say("Its a tie")
+                   print("Its a tie")
+                engine.say("Thank you for playing")
+                engine.runAndWait()
+                engine.say("Do you want to play again? To play again place card of any player, to end game place end game card")
+                engine.runAndWait()
+                print("do you want to paly again?")
+                playAgain = answerInput()
+                if(playAgain == "EndGame"):
+                  engine.say("Are you sure you want to end the game. If you want to end game then place End Game card again ")
+                  engine.runAndWait()
+                  endGame = True
+                if(playAgain[0:2] == "P1" or playAgain[0:2] == "P3" or playAgain[0:2] == "P3" or playAgain[0:2] == "P4"):
+                  newGame = True
+                if(endGame == True):  
+                  playAgain = answerInput()
+                  if(playAgain == "EndGame"): 
+                     rpiHalt = True
+                     shutdownRpi(rpiHalt)
+                  if(playAgain[0:2] == "P1" or playAgain[0:2] == "P3" or playAgain[0:2] == "P3" or playAgain[0:2] == "P4"):
+                    newGame = True
+                    engine.say("Lets play again")
+                    engine.runAndWait()
+
+'''
             except IndexError as e:
                  print(e)
                  error = True
@@ -406,38 +464,4 @@ if(startGame == True):
                              print(player4)
                              i=i+1
                              eroor = False
-                       
-            
-            announceScore(i)
-            if rounds==4:
-                engine.say('All rounds are over ')
-                print("All rounds are over ")
-                gameOver = winner(player1,player2,player3,player4)
-                if(gameOver == True):    
-                   engine.say("Winner is "+ winner)
-                   print("Winner is" + winner)
-                if(winner == False):
-                   engine.say("Its a tie")
-                   print("Its a tie")
-                engine.say("Thank you for playing")
-                engine.runAndWait()
-                engine.say("Do you want to play again? To play again place card of any player, to end game place end game card")
-                engine.runAndWait()
-                print("do you want to paly again?")
-                playAgain = answerInput()
-                if(playAgain == "EndGame"):
-                  engine.say("Are you sure you want to end the game. If you want to end game then place End Game card again ")
-                  engine.runAndWait()
-                  endGame = True
-                if(playAgain[0:2] == "P1" or playAgain[0:2] == "P3" or playAgain[0:2] == "P3" or playAgain[0:2] == "P4"):
-                  newGame = True
-                if(endGame == True):  
-                  playAgain = answerInput()
-                  if(playAgain == "EndGame"): 
-                     rpiHalt = True
-                     shutdownRpi(rpiHalt)
-                  if(playAgain[0:2] == "P1" or playAgain[0:2] == "P3" or playAgain[0:2] == "P3" or playAgain[0:2] == "P4"):
-                    newGame = True
-                    engine.say("Lets play again")
-                    engine.runAndWait()
-
+                             '''
