@@ -161,6 +161,7 @@ def shutdownRpi(halt):
      print("shutdown rpi")
 
 start_new_thread(answerInput,())
+
 #Ask for no of players
 engine.say("How many players are there? ")
 engine.runAndWait()
@@ -171,7 +172,7 @@ while(playersConfirmed != True):
     t0=time.clock()
     print(round(t0))
     while(time.clock() - t0 < 15):
-        playerEntry = answerInput()
+        #playerEntry = answerInput()
         print(playerEntry[0:2])
         print(time.clock() - t0)
         if(playerEntry in playerInputs):
