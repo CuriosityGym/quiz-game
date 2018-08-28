@@ -409,7 +409,6 @@ if(startGame == True):
                        
             
             announceScore(i)
-            
             if rounds==4:
                 engine.say('All rounds are over ')
                 print("All rounds are over ")
