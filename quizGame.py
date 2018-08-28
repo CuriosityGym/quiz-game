@@ -362,6 +362,7 @@ if(startGame == True):
 
             announceScore(i)
             if rounds==4:
+                print(rounds)
                 engine.say('All rounds are over ')
                 print("All rounds are over ")
                 gameOver = winner(player1,player2,player3,player4)
