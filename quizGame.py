@@ -91,7 +91,7 @@ def answerInput():
     finally:
         GPIO.cleanup()
         
-    return text
+    return playerEntry
 
 
 def updateScore(playerNum):
