@@ -97,7 +97,7 @@ def updateScore(playerNum, increment, numberOfPlayers):
     print(playerNum)
     print(increment)
     for i in range(0,numberOfPlayers):
-        print(player[i])
+        print(players[i])
         print(playerNum)
         if(playerNum==players[i]):
             playerScores[i]= playerScores[i]+10
