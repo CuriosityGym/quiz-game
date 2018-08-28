@@ -162,7 +162,26 @@ def shutdownRpi(halt):
    if halt == True:
      print("shutdown rpi")
 
-
+def announceScore(x):
+    if(x==noOfPlayers):
+        i=0
+        engine.say('After ' + str(rounds) + 'rounds score is  ')
+        rounds+=1
+        if(noOfPlayers == 2):
+            engine.say('Player 1 '+ str(player1) + ' points.')
+            engine.say('Player 2 '+ str(player2) + ' points.')
+            engine.runAndWait()
+        if(noOfPlayers == 2):
+            engine.say('Player 1 '+ str(player1) + ' points.')
+            engine.say('Player 2 '+ str(player2) + ' points.')
+            engine.say('Player 3 '+ str(player3) + ' points.')
+            engine.runAndWait()
+        if(noOfPlayers == 2):
+            engine.say('Player 1 '+ str(player1) + ' points.')
+            engine.say('Player 2 '+ str(player2) + ' points.')
+            engine.say('Player 3 '+ str(player3) + ' points.')
+            engine.say('Player 4 '+ str(player4) + ' points.')
+            engine.runAndWait()
 readRules()
 
 #Ask for no of players
@@ -291,6 +310,8 @@ if(startGame == True):
                     engine.runAndWait()
                     ans = answerInput()
                     time.sleep(1)
+                    engine.say("Your final answer is "+ans[2])
+                    engine.runAndWait() 
                     # id, text = reader.read()
                     # ans = text
                     print('answer is : ' + q['answer'])
@@ -315,27 +336,80 @@ if(startGame == True):
                     print(player3)
                     print(player4)
                     i=i+1
-                    if(i==noOfPlayers):
-                        i=0
-                        engine.say('After ' + str(rounds) + 'rounds score is  ')
-                        rounds+=1
-                        if(noOfPlayers == 2):
-                            engine.say('Player 1 '+ str(player1) + ' points.')
-                            engine.say('Player 2 '+ str(player2) + ' points.')
-                        if(noOfPlayers == 2):
-                            engine.say('Player 1 '+ str(player1) + ' points.')
-                            engine.say('Player 2 '+ str(player2) + ' points.')
-                            engine.say('Player 3 '+ str(player3) + ' points.')
-                        if(noOfPlayers == 2):
-                            engine.say('Player 1 '+ str(player1) + ' points.')
-                            engine.say('Player 2 '+ str(player2) + ' points.')
-                            engine.say('Player 3 '+ str(player3) + ' points.')
-                            engine.say('Player 4 '+ str(player4) + ' points.')
-                    engine.runAndWait()
             except IndexError as e:
-                print(e)
-                engine.say("problem in reading your tag, please enter your answer again")
-                engine.runAndWait()
+                 print(e)
+                 error = True
+                 engine.say("problem in reading your tag, please enter your answer again")
+                 engine.runAndWait() 
+                 while(error == True):
+                     engine.say('Round' + str(rounds))
+                     print("Round " + str(rounds))
+                     engine.say("Question for " + players[i])
+                     print('Question is: ' + q['question'])
+                     engine.say('Question is: ' + q['question'])
+                     print('option A: ' + q['a'])
+                     engine.say('option A: ' + q['a'])
+                     print('option B: ' + q['b'])
+                     engine.say('option B: ' + q['b'])
+                     print('option C: ' + q['c'])
+                     engine.say('option C: ' + q['c'])
+                     print('option D: ' + q['d'])
+                     engine.say('option D: ' + q['d'])
+                     engine.say(players[i] + 'Enter your answer ')
+                     engine.runAndWait()
+                     print("Enter your answer: ")
+                     #ans = raw_input("enter your answer :")
+                     ans = answerInput()
+            
+                     if(ans == "EndGame"):
+                         print("Confirm??")
+                         enagine.say("Are you sure you want to end game, to end game place end game card again,  if you place that card by mistake then place card of any player to continue the game")
+                         engine.runAndWait()
+                         end = answerInput()
+                         if(end == "EndGame"):
+                            areYousure = True
+                    if(ans == "GameRules"):
+                         readRules()
+                         enagine.say("Enter you answer")
+                         engine.runAndWait()
+                         ans = answerInput()
+                     try:
+                          if(ans[0:2] == "P1" or ans[0:2] == "P2" or ans[0:2] == "P3" or ans[0:2] == "P4"):
+                             print(ans[2])
+                             engine.say("You have selected option " + ans[2])
+                             engine.say("Are you sure, Do you want to lock option " + ans [2])
+                             engine.runAndWait()
+                             ans = answerInput()
+                             time.sleep(1)
+                             # id, text = reader.read()
+                             # ans = text
+                             print('answer is : ' + q['answer'])
+                             if(ans[2] == 'a' or ans[2] == 'A'):
+                                realAns = q['a']
+                             if(ans == 'b' or ans[2]== 'B'):
+                                realAns = q['b']
+                             if(ans == 'c' or ans[2]=='C'):
+                                realAns = q['c']
+                             if(ans == 'd' or ans[2]=='D'):
+                                realAns = q['d']   
+                             engine.say('answer is : ' + q['answer'])
+                             if(realAns == q['answer'] and str(i+1) == ans[1]):
+                                engine.say('Your answer is correct, 10 pointes to '+ players[i])
+                                updateScore(players[i])
+                             elif(realAns == q['answer'] and (str(i+1) != ans[1])):
+                                engine.say('Your answer is right but player ' + str(i+1) + 'did not give this answer. No points to player'+ str(i+1))
+                             else:
+                                engine.say('Your answer is wrong')
+                             print(player1)
+                             print(player2)
+                             print(player3)
+                             print(player4)
+                             i=i+1
+                             eroor = False
+                       
+            
+            announceScore(i)
+            
             if rounds==4:
                 engine.say('All rounds are over ')
                 print("All rounds are over ")
@@ -347,8 +421,8 @@ if(startGame == True):
                    engine.say("Its a tie")
                    print("Its a tie")
                 engine.say("Thank you for playing")
-                
-                enagine.say("Do you want to play again? To play again place card of any player, to end game place end game card")
+                engine.runAndWait()
+                engine.say("Do you want to play again? To play again place card of any player, to end game place end game card")
                 engine.runAndWait()
                 print("do you want to paly again?")
                 playAgain = answerInput()
