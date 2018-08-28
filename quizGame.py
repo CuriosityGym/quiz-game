@@ -368,7 +368,7 @@ if(startGame == True):
                          end = answerInput()
                          if(end == "EndGame"):
                             areYousure = True
-                    if(ans == "GameRules"):
+                     if(ans == "GameRules"):
                          readRules()
                          enagine.say("Enter you answer")
                          engine.runAndWait()
