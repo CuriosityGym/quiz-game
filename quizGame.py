@@ -175,7 +175,7 @@ while(playersConfirmed != True):
     playerEntry = answerInput()
     print(playerEntry[0:2])
     #print(time.clock() - t0)
-    if(playerEntry in playerInputs):
+    if(playerEntry[0:3] in playerInputs):
         noOfPlayers +=1
         engine.say('player ' + str(noOfPlayers) + 'added')
         engine.say('player ' + str(noOfPlayers + 1) + 'please place your card')
