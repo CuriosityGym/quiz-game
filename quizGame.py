@@ -93,7 +93,12 @@ def answerInput():
 
 #updateScore(players[i],points,noOfPlayers)
 def updateScore(playerNum, increment, numberOfPlayers):
+    global playerScores
+    print(playerNum)
+    print(increment)
     for i in range(0,numberOfPlayers):
+        print(player[i])
+        print(playerNum)
         if(playerNum==players[i]):
             playerScores[i]= playerScores[i]+10
 '''
