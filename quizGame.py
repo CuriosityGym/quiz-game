@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import thread import start_new_thread
+from thread import start_new_thread
 import RPi.GPIO as GPIO
 import SimpleMFRC522
 import pyttsx3;
