@@ -290,7 +290,7 @@ if(startGame == True):
                 engine.runAndWait()
                 end = answerInput()
                 if(end[0:2] == "EG"):
-                   areYousure = True
+                   areYouSure = True
                    checkAns = False
             if(ans[0:2] == "GR"):
                 readRules()
