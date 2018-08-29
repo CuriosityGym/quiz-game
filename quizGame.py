@@ -81,24 +81,22 @@ quizQuestions['questionBank'].append({
 
 def answerInput():
     text1 = ""
-    try:
+    #try:
         #t0 = time.clock()
        # global playerEntry
-        while text1 not in tags:
-            engine.say("Place your card: ")
-            engine.runAndWait()
-            id, text = reader.read()
-            print(id)
-            print(text)
-            print(type(text))
-            text1 = text
-            print(text1)
-            if(text1 == "P1C"):
-               print("matched")
+    while text not in tags:
+        engine.say("Place your card: ")
+        engine.runAndWait()
+        id, text = reader.read()
+        print(id)
+        print(text)
+        print(type(text))
+        if(text == "P1C"):
+           print("matched")
         
     
-    finally:
-        GPIO.cleanup()
+    #finally:
+     #   GPIO.cleanup()
         
     return text
 
