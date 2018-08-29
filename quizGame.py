@@ -89,6 +89,8 @@ def answerInput():
             id, text = reader.read()
             print(id)
             print(text)
+            if(text == "P1C):
+               print("matched")
         
     
     finally:
