@@ -80,7 +80,7 @@ quizQuestions['questionBank'].append({
 
 
 def answerInput():
-    text1 = ""
+    text = ""
     #try:
         #t0 = time.clock()
        # global playerEntry
