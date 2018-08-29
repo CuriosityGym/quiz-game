@@ -26,6 +26,7 @@ startGame = False
 playersConfirmed=False
 validInput = False
 error=False
+endGame = False
 
 def readRules():
     f = open("quizGameRules.txt",'r')
@@ -94,11 +95,7 @@ def answerInput():
 #updateScore(players[i],points,noOfPlayers)
 def updateScore(playerNum, increment, numberOfPlayers):
     global playerScores
-    print(playerNum)
-    print(increment)
     for i in range(0,numberOfPlayers):
-        print(players[i])
-        print(playerNum)
         if(playerNum==players[i]):
             playerScores[i]= playerScores[i]+10
 '''
@@ -350,8 +347,10 @@ if(startGame == True):
                 
                 engine.say('After ' + str(rounds) + 'rounds score is  ')
                 rounds+=1
-                for x in range(0,noOfPlayers):
-                    engine.say('Player '+str(x+1) + str(playerScores[x]) + ' points.')
+                p=0
+                for x in playerscores:
+                    p+=1
+                    engine.say('Player '+str(p) + str(x) + ' points.')
                     engine.runAndWait()
                 i=0
             if rounds==4:
