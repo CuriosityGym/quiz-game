@@ -280,9 +280,9 @@ if(startGame == True):
                 end = answerInput()
                 if(end == "EndGame"):
                    areYousure = True
-            if(ans == "GameRules"):
+            elif(ans == "GameRules"):
                 readRules()
-                enagine.say("Enter you answer")
+                enagine.say("Now enter you answer")
                 engine.runAndWait()
                 ans = answerInput()
             else:    
