@@ -183,13 +183,17 @@ def shutdownRpi(halt):
    if halt == True:
      print("shutdown rpi")
 
+def speak(msg):
+    engine.say(msg)
+    engine.runAndWait()
 
 readRules()
 
 #Ask for no of players
-engine.say("How many players are there? ")
-engine.say("Player 1  please place your card")
-engine.runAndWait()
+#engine.say("How many players are there? ")
+#engine.say("Player 1  please place your card")
+#engine.runAndWait()
+speak("How many players are there?  Player 1  please place your card")
 time.sleep(1)
 while(playersConfirmed != True):
     #t0=time.clock()
@@ -201,8 +205,9 @@ while(playersConfirmed != True):
     #print(time.clock() - t0)
     if(playerEntry[0:3] in playerInputs):
         noOfPlayers +=1
-        engine.say('player ' + str(noOfPlayers) + 'added')
-        engine.runAndWait() 
+        speak('player ' + str(noOfPlayers) + 'added')
+        #engine.say('player ' + str(noOfPlayers) + 'added')
+        #engine.runAndWait() 
         if(noOfPlayers == 1):
            engine.say('player ' + str(noOfPlayers + 1) + 'please place your card')
            engine.runAndWait()
@@ -382,7 +387,7 @@ if(startGame == True):
                 print(rounds)
                 engine.say('All rounds are over ')
                 print("All rounds are over ")
-                gameOver = winner(player1,player2,player3,player4)
+                gameOver = winner(playerScores,noOfPlayers)
                 if(gameOver == True):    
                    engine.say("Winner is "+ winner)
                    print("Winner is" + winner)
