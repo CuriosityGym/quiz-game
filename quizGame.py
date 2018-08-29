@@ -80,16 +80,17 @@ quizQuestions['questionBank'].append({
 
 
 def answerInput():
-    text = ""
+    text1 = ""
     try:
         #t0 = time.clock()
        # global playerEntry
-        while text not in tags:
+        while text1 not in tags:
             engine.say("Place your card: ")
             engine.runAndWait()
             id, text = reader.read()
             print(id)
             print(text)
+            print(type(text))
             text1 = text
             print(text1)
             if(text1 == "P1C"):
