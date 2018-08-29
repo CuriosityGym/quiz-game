@@ -30,6 +30,7 @@ error=False
 endGame = False
 rules = False
 checkAns = True
+areYouSure = False
 def readRules():
     f = open("quizGameRules.txt",'r')
     gameRules = f.read()
