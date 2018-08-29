@@ -401,6 +401,10 @@ if(startGame == True):
                     newGame = True
                     engine.say("Lets play again")
                     engine.runAndWait()
+        if(areYouSure == True):
+            print("End The Game")
+            shutdownRpi(areYouSure)
+            break
 
 '''
             except IndexError as e:
