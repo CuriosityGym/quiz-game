@@ -28,7 +28,8 @@ playersConfirmed=False
 validInput = False
 error=False
 endGame = False
-
+rules = False
+checkAns = True
 def readRules():
     f = open("quizGameRules.txt",'r')
     gameRules = f.read()
@@ -284,42 +285,45 @@ if(startGame == True):
             
             if(ans[0:2] == "EG"):
                 print("Confirm??")
-                enagine.say("Are you sure you want to end game, to end game place end game card again,  if you place that card by mistake then place card of any player to continue the game")
+                engine.say("Are you sure you want to end game, to end game place end game card again,  if you place that card by mistake then place card of any player to continue the game")
                 engine.runAndWait()
                 end = answerInput()
                 if(end[0:2] == "EG"):
                    areYousure = True
-            elif(ans[0:2] == "GR"):
+                   checkAns = False
+            if(ans[0:2] == "GR"):
                 readRules()
+                rules = True
                 engine.say("Now enter you answer")
                 engine.runAndWait()
                 ans = answerInput()
-            #else:    
-            try:
-                 if(ans[0:2] == "P1" or ans[0:2] == "P2" or ans[0:2] == "P3" or ans[0:2] == "P4"):
-                    print(ans[2])
-                    print('run try block')
-                    validInput = True
-            except IndexError as e:
-                 print(e)
-                 error = True
-                 validInput = False
-                 engine.say("problem in reading your tag, please enter your answer again")
-                 engine.runAndWait()
-            while(error == True):
-                ans = answerInput()
+            if rules == True or checkAns == True:
+                rules = False
                 try:
-                    if(ans[0:2] == "P1" or ans[0:2] == "P2" or ans[0:2] == "P3" or ans[0:2] == "P4"):
+                     if(ans[0:2] == "P1" or ans[0:2] == "P2" or ans[0:2] == "P3" or ans[0:2] == "P4"):
                         print(ans[2])
-                        print('run try block2')
+                        print('run try block')
                         validInput = True
-                        error = False
                 except IndexError as e:
-                    print(e)
-                    error = True
-                    validInput = False
-                    engine.say("problem in reading your tag, please enter your answer again")
-                    engine.runAndWait()
+                     print(e)
+                     error = True
+                     validInput = False
+                     engine.say("problem in reading your tag, please enter your answer again")
+                     engine.runAndWait()
+                while(error == True):
+                    ans = answerInput()
+                    try:
+                        if(ans[0:2] == "P1" or ans[0:2] == "P2" or ans[0:2] == "P3" or ans[0:2] == "P4"):
+                            print(ans[2])
+                            print('run try block2')
+                            validInput = True
+                            error = False
+                    except IndexError as e:
+                        print(e)
+                        error = True
+                        validInput = False
+                        engine.say("problem in reading your tag, please enter your answer again")
+                        engine.runAndWait()
                 
             if(validInput == True):
                 engine.say("You have selected option " + ans[2])
