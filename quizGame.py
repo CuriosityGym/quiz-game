@@ -348,7 +348,7 @@ if(startGame == True):
                 engine.say('After ' + str(rounds) + 'rounds score is  ')
                 rounds+=1
                 for x in range(0,noOfPlayers):
-                    engine.say('Player '+str(x+1) +"  "+ playerScores[x] + ' points.')
+                    engine.say('Player '+str(x+1) +' '+ str(playerScores[x]) + ' points.')
                     engine.runAndWait()
                 i=0
             if rounds==4:
