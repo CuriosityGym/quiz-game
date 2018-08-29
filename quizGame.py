@@ -79,10 +79,14 @@ quizQuestions['questionBank'].append({
 
 
 def answerInput():
+    text = ""
     try:
         #t0 = time.clock()
        # global playerEntry
-        id, text = reader.read()
+        while text[0:2] != "P1" or text[0:2] != "P2" or text[0:2] != "P3" or text[0:2] != "P4" or text[0:2] != "GR" or text[0:2] != "EG":
+            engine.say("Place your card: ")
+            engine.runAndWait()
+            id, text = reader.read()
         
         print(id)
         print(text)
@@ -252,10 +256,10 @@ if(startGame == True):
     with open('quizQuestions.json') as json_file:
         data = json.load(json_file)
         i=0
-        rounds = 1
+        rounds = 0
         for q in data['questionBank']:
-            engine.say('Round' + str(rounds))
-            print("Round " + str(rounds))
+            engine.say('Round' + str(rounds+1))
+            print("Round " + str(rounds+1))
             engine.say("Question for " + players[i])
             print('Question is: ' + q['question'])
             engine.say('Question is: ' + q['question'])
@@ -273,14 +277,14 @@ if(startGame == True):
             #ans = raw_input("enter your answer :")
             ans = answerInput()
             
-            if(ans == "EndGame"):
+            if(ans[0:2] == "EG"):
                 print("Confirm??")
                 enagine.say("Are you sure you want to end game, to end game place end game card again,  if you place that card by mistake then place card of any player to continue the game")
                 engine.runAndWait()
                 end = answerInput()
-                if(end == "EndGame"):
+                if(end[0:2] == "EG"):
                    areYousure = True
-            elif(ans == "GameRules"):
+            elif(ans[0:2] == "GR"):
                 readRules()
                 enagine.say("Now enter you answer")
                 engine.runAndWait()
@@ -289,6 +293,7 @@ if(startGame == True):
                 try:
                      if(ans[0:2] == "P1" or ans[0:2] == "P2" or ans[0:2] == "P3" or ans[0:2] == "P4"):
                         print(ans[2])
+                        print('run try block')
                         validInput = True
                 except IndexError as e:
                      print(e)
@@ -301,6 +306,7 @@ if(startGame == True):
                     try:
                         if(ans[0:2] == "P1" or ans[0:2] == "P2" or ans[0:2] == "P3" or ans[0:2] == "P4"):
                             print(ans[2])
+                            print('run try block2')
                             validInput = True
                             error = False
                     except IndexError as e:
@@ -368,16 +374,19 @@ if(startGame == True):
                 engine.runAndWait()
                 print("do you want to paly again?")
                 playAgain = answerInput()
-                if(playAgain == "EndGame"):
+                if(playAgain[0:2] == "EG"):
                   engine.say("Are you sure you want to end the game. If you want to end game then place End Game card again ")
                   engine.runAndWait()
                   endGame = True
+                  newGame = False
                 if(playAgain[0:2] == "P1" or playAgain[0:2] == "P3" or playAgain[0:2] == "P3" or playAgain[0:2] == "P4"):
                   newGame = True
                 if(endGame == True):  
                   playAgain = answerInput()
-                  if(playAgain == "EndGame"): 
+                  if(playAgain[0:2] == "EG"): 
                      rpiHalt = True
+                     newGame = False
+                     startGame = False
                      shutdownRpi(rpiHalt)
                   if(playAgain[0:2] == "P1" or playAgain[0:2] == "P3" or playAgain[0:2] == "P3" or playAgain[0:2] == "P4"):
                     newGame = True
