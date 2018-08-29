@@ -291,7 +291,7 @@ if(startGame == True):
                    areYousure = True
             elif(ans[0:2] == "GR"):
                 readRules()
-                enagine.say("Now enter you answer")
+                engine.say("Now enter you answer")
                 engine.runAndWait()
                 ans = answerInput()
             else:    
