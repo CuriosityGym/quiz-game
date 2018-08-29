@@ -313,7 +313,7 @@ if(startGame == True):
                 rules = False
                 try:
                      if(ans[0:2] == "P1" or ans[0:2] == "P2" or ans[0:2] == "P3" or ans[0:2] == "P4"):
-                        print(ans[2])
+                        print(ans)
                         print('run try block')
                         validInput = True
                 except IndexError as e:
@@ -326,7 +326,7 @@ if(startGame == True):
                     ans = answerInput()
                     try:
                         if(ans[0:2] == "P1" or ans[0:2] == "P2" or ans[0:2] == "P3" or ans[0:2] == "P4"):
-                            print(ans[2])
+                            print(ans)
                             print('run try block2')
                             validInput = True
                             error = False
