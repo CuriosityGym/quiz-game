@@ -342,18 +342,18 @@ if(startGame == True):
                     engine.say('Your answer is wrong')
                 
                 for y in playerScores:
-                    print(i)
+                    print("player: " + str(y))
                
                 i=i+1
 
             if(i==noOfPlayers):
-                i=0
+                
                 engine.say('After ' + str(rounds) + 'rounds score is  ')
                 rounds+=1
                 for x in range(0,noOfPlayers):
-                    engine.say('Player '+str(i) + str(player1) + ' points.')
+                    engine.say('Player '+str(x+1) + str(playerScores[x]) + ' points.')
                     engine.runAndWait()
-                
+                i=0
             if rounds==4:
                 print(rounds)
                 engine.say('All rounds are over ')
