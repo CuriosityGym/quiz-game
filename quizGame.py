@@ -10,6 +10,7 @@ engine = pyttsx3.init()
 rate = engine.getProperty('rate')
 engine.setProperty('rate', rate-40)
 realAns = ""
+tags = ["P1A","P1B","P1C","P1D","P2A","P2B","P2C","P2D","P3A","P3B","P3C","P3D","P4A","P4B","P4C","P4D","GR","EG"]
 players = [" player 1"," player 2"," player 3"," player 4"]
 playerInputs = ["P1A","P1B","P1C","P1D","P2A","P2B","P2C","P2D","P3A","P3B","P3C","P3D","P4A","P4B","P4C","P4D"]
 player1=0
@@ -79,11 +80,11 @@ quizQuestions['questionBank'].append({
 
 
 def answerInput():
-    text1 = ""
+    text = ""
     try:
         #t0 = time.clock()
        # global playerEntry
-        while text1[0:2] != "P1" or text1[0:2] != "P2" or text1[0:2] != "P3" or text1[0:2] != "P4" or text1[0:2] != "GR" or text1[0:2] != "EG":
+        while text not in tags:
             engine.say("Place your card: ")
             engine.runAndWait()
             id, text = reader.read()
@@ -91,7 +92,7 @@ def answerInput():
             print(text)
             text1 = text
             print(text1)
-            if(text == "P1C"):
+            if(text1 == "P1C"):
                print("matched")
         
     
