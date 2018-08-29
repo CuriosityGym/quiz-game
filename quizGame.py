@@ -123,6 +123,14 @@ def updateScore(playerNum, increment, numberOfPlayers):
         global player4
         player4 += points
 '''
+def winner(scoreList, numPlayers):
+    global winner
+    winr = scoreList[0]
+    for a in range(0,numPlayers):
+        if scoreList[a] > winr:
+            winr = scoreList[a]
+            winner = players[a]
+'''
 def winner(p1,p2,p3,p4):
     global winner
     if p1>p2 and p1 > p3 and p1>p4:
@@ -170,7 +178,7 @@ def winner(p1,p2,p3,p4):
     elif p3 == p4:
         print("its tie")
         return False
-
+'''
 def shutdownRpi(halt):
    if halt == True:
      print("shutdown rpi")
@@ -292,6 +300,9 @@ if(startGame == True):
                 if(end[0:2] == "EG"):
                    areYouSure = True
                    checkAns = False
+                else:
+                    checkAns = True
+                    ans = answerInput()
             if(ans[0:2] == "GR"):
                 readRules()
                 rules = True
