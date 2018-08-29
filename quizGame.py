@@ -87,9 +87,9 @@ def answerInput():
             engine.say("Place your card: ")
             engine.runAndWait()
             id, text = reader.read()
+            print(id)
+            print(text)
         
-        print(id)
-        print(text)
     
     finally:
         GPIO.cleanup()
