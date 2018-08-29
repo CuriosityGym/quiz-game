@@ -84,6 +84,7 @@ def answerInput():
     #try:
         #t0 = time.clock()
        # global playerEntry
+       
     while text not in tags:
         engine.say("Place your card: ")
         engine.runAndWait()
@@ -93,7 +94,7 @@ def answerInput():
         print(type(text))
         if(text == "P1C"):
            print("matched")
-        
+        print(tags)   
     
     #finally:
      #   GPIO.cleanup()
