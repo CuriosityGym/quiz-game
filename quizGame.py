@@ -205,12 +205,9 @@ while(playersConfirmed != True):
     #print(time.clock() - t0)
     if(playerEntry[0:3] in playerInputs):
         noOfPlayers +=1
-        speak('player ' + str(noOfPlayers) + 'added')
-        #engine.say('player ' + str(noOfPlayers) + 'added')
-        #engine.runAndWait() 
+        speak('player ' + str(noOfPlayers) + 'added') 
         if(noOfPlayers == 1):
-           engine.say('player ' + str(noOfPlayers + 1) + 'please place your card')
-           engine.runAndWait()
+           speak('player ' + str(noOfPlayers + 1) + 'please place your card')
         t0=time.clock()
         if(playerEntry[0:2] == "P1"):
            playerInputs.remove('P1A')
@@ -235,33 +232,27 @@ while(playersConfirmed != True):
         print(playerInputs)
     #print(round(time.clock() - t0))
         if(noOfPlayers >= 2):
-            if(noOfPlayers == 2): 
-               engine.say("Do you want to play with 2 players then player 1 place your card if want to add more players then player 2 place your card")
-               engine.runAndWait()
+            if(noOfPlayers == 2):
+               speak("Do you want to play with 2 players then player 1 place your card if want to add more players then player 2 place your card") 
                playerEntry = answerInput()
                if(playerEntry[0:2] == prevEntry[0:2]):
-                   engine.say('player ' + str(noOfPlayers + 1) + 'please place your card')
-                   engine.runAndWait()
+                   speak('player ' + str(noOfPlayers + 1) + 'please place your card')
                if(playerEntry[0:2] == "P1"):
                    playersConfirmed=True
                    startGame =True
             if(noOfPlayers ==3):
-               engine.say("Do you want to play with 3 players then player 1 place your card if want to add more players then player 3 place your card")
-               engine.runAndWait()
+               speak("Do you want to play with 3 players then player 1 place your card if want to add more players then player 3 place your card") 
                playerEntry = answerInput()
                if(playerEntry[0:2] == prevEntry[0:2]):
-                   engine.say('player ' + str(noOfPlayers + 1) + 'please place your card')
-                   engine.runAndWait()
+                   speak('player ' + str(noOfPlayers + 1) + 'please place your card')
                if(playerEntry[0:2] == "P1"):
                    playersConfirmed=True
                    startGame =True
             if(noOfPlayers ==4):
-               engine.say("Do you want to play with 3 players then player 1 place your card if want to add more players then player 3 place your card")
-               engine.runAndWait()
+               speak("Do you want to play with 3 players then player 1 place your card if want to add more players then player 3 place your card") 
                playerEntry = answerInput()
                if(playerEntry[0:2] == prevEntry[0:2]):
-                   engine.say('player ' + str(noOfPlayers + 1) + 'please place your card')
-                   engine.runAndWait()
+                   speak('player ' + str(noOfPlayers + 1) + 'please place your card')
                if(playerEntry[0:2] == "P1"):
                    playersConfirmed=True
                    startGame =True
@@ -271,36 +262,33 @@ while(playersConfirmed != True):
                 engine.runAndWait()'''
 
 if(startGame == True):
-    engine.say("Welcome all " + str(noOfPlayers) + " players, All the best, Lets play ")
-    engine.runAndWait()
+    speak("Welcome all " + str(noOfPlayers) + " players, All the best, Lets play ")
     with open('quizQuestions.json') as json_file:
         data = json.load(json_file)
         i=0
         rounds = 0
         for q in data['questionBank']:
-            engine.say('Round' + str(rounds+1))
+            speak('Round' + str(rounds+1))
             print("Round " + str(rounds+1))
-            engine.say("Question for " + players[i])
+            speak("Question for " + players[i])
             print('Question is: ' + q['question'])
-            engine.say('Question is: ' + q['question'])
+            speak('Question is: ' + q['question'])
             print('option A: ' + q['a'])
-            engine.say('option A: ' + q['a'])
+            speak('option A: ' + q['a'])
             print('option B: ' + q['b'])
-            engine.say('option B: ' + q['b'])
+            speak('option B: ' + q['b'])
             print('option C: ' + q['c'])
-            engine.say('option C: ' + q['c'])
+            speak('option C: ' + q['c'])
             print('option D: ' + q['d'])
-            engine.say('option D: ' + q['d'])
-            engine.say(players[i] + 'Enter your answer ')
-            engine.runAndWait()
+            speak('option D: ' + q['d'])
+            speak(players[i] + 'Enter your answer ')
             print("Enter your answer: ")
             #ans = raw_input("enter your answer :")
             ans = answerInput()
             
             if(ans[0:2] == "EG"):
                 print("Confirm??")
-                engine.say("Are you sure you want to end game, to end game place end game card again,  if you place that card by mistake then place card of any player to continue the game")
-                engine.runAndWait()
+                speak("Are you sure you want to end game, to end game place end game card again,  if you place that card by mistake then place card of any player to continue the game")       
                 end = answerInput()
                 if(end[0:2] == "EG"):
                    areYouSure = True
@@ -311,8 +299,7 @@ if(startGame == True):
             if(ans[0:2] == "GR"):
                 readRules()
                 rules = True
-                engine.say("Now enter you answer")
-                engine.runAndWait()
+                speak("Now enter you answer")
                 ans = answerInput()
             if rules == True or checkAns == True:
                 rules = False
@@ -325,8 +312,7 @@ if(startGame == True):
                      print(e)
                      error = True
                      validInput = False
-                     engine.say("problem in reading your tag, please enter your answer again")
-                     engine.runAndWait()
+                     speak("problem in reading your tag, please enter your answer again")
                 while(error == True):
                     ans = answerInput()
                     try:
@@ -339,17 +325,13 @@ if(startGame == True):
                         print(e)
                         error = True
                         validInput = False
-                        engine.say("problem in reading your tag, please enter your answer again")
-                        engine.runAndWait()
+                        speak("problem in reading your tag, please enter your answer again")
                 
             if(validInput == True):
-                engine.say("You have selected option " + ans[2])
-                engine.say("Are you sure, Do you want to lock option " + ans [2])
-                engine.runAndWait()
+                speak("You have selected option " + ans[2] + "Are you sure, Do you want to lock option " + ans [2])
                 ans = answerInput()
                 time.sleep(1)
-                engine.say("Your final answer is option"+ans[2])
-                engine.runAndWait() 
+                speak("Your final answer is option "+ans[2]) 
                 # id, text = reader.read()
                 # ans = text
                 print('answer is : ' + q['answer'])
@@ -361,14 +343,14 @@ if(startGame == True):
                    realAns = q['c']
                 if(ans == 'd' or ans[2]=='D'):
                    realAns = q['d']   
-                engine.say('answer is : ' + q['answer'])
+                speak('answer is  ' + q['answer'])
                 if(realAns == q['answer'] and str(i+1) == ans[1]):
-                   engine.say('Your answer is correct, 10 pointes to '+ players[i])
+                   speak('Your answer is correct, 10 pointes to '+ players[i]) 
                    updateScore(players[i],points,noOfPlayers)
                 elif(realAns == q['answer'] and (str(i+1) != ans[1])):
-                   engine.say('Your answer is right but player ' + str(i+1) + 'did not give this answer. No points to player'+ str(i+1))
+                   speak('Your answer is right but player ' + str(i+1) + 'did not give this answer. No points to player'+ str(i+1)) 
                 else:
-                    engine.say('Your answer is wrong')
+                    speak('Your answer is wrong')
                 
                 for y in playerScores:
                     print("player: " + str(y))
@@ -376,33 +358,27 @@ if(startGame == True):
                 i=i+1
 
             if(i==noOfPlayers):
-                
-                engine.say('After ' + str(rounds) + 'rounds score is  ')
+                speak('After ' + str(rounds) + 'rounds score is  ')
                 rounds+=1
                 for x in range(0,noOfPlayers):
-                    engine.say('Player '+str(x+1) +' '+ str(playerScores[x]) + ' points.')
-                    engine.runAndWait()
+                    speak('Player '+str(x+1) +' '+ str(playerScores[x]) + ' points.')
                 i=0
             if rounds==4:
                 print(rounds)
-                engine.say('All rounds are over ')
+                speak('All rounds are over ')
                 print("All rounds are over ")
                 gameOver = winner(playerScores,noOfPlayers)
-                if(gameOver == True):    
-                   engine.say("Winner is "+ winner)
+                if(gameOver == True):
+                   speak("Winner is "+ winner)
                    print("Winner is" + winner)
                 if(winner == False):
-                   engine.say("Its a tie")
+                   speak("Its a tie")
                    print("Its a tie")
-                engine.say("Thank you for playing")
-                engine.runAndWait()
-                engine.say("Do you want to play again? To play again place card of any player, to end game place end game card")
-                engine.runAndWait()
+                speak("Thank you for playing. Do you want to play again? To play again place card of any player, to end game place end game card")   
                 print("do you want to paly again?")
                 playAgain = answerInput()
                 if(playAgain[0:2] == "EG"):
-                  engine.say("Are you sure you want to end the game. If you want to end game then place End Game card again ")
-                  engine.runAndWait()
+                  speak("Are you sure you want to end the game. If you want to end game then place End Game card again ")  
                   endGame = True
                   newGame = False
                 if(playAgain[0:2] == "P1" or playAgain[0:2] == "P3" or playAgain[0:2] == "P3" or playAgain[0:2] == "P4"):
@@ -416,8 +392,7 @@ if(startGame == True):
                      shutdownRpi(rpiHalt)
                   if(playAgain[0:2] == "P1" or playAgain[0:2] == "P3" or playAgain[0:2] == "P3" or playAgain[0:2] == "P4"):
                     newGame = True
-                    engine.say("Lets play again")
-                    engine.runAndWait()
+                    speak("Lets play again")
             if(areYouSure == True):
                 print("End The Game")
                 shutdownRpi(areYouSure)
