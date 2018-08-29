@@ -294,32 +294,32 @@ if(startGame == True):
                 engine.say("Now enter you answer")
                 engine.runAndWait()
                 ans = answerInput()
-            else:    
+            #else:    
+            try:
+                 if(ans[0:2] == "P1" or ans[0:2] == "P2" or ans[0:2] == "P3" or ans[0:2] == "P4"):
+                    print(ans[2])
+                    print('run try block')
+                    validInput = True
+            except IndexError as e:
+                 print(e)
+                 error = True
+                 validInput = False
+                 engine.say("problem in reading your tag, please enter your answer again")
+                 engine.runAndWait()
+            while(error == True):
+                ans = answerInput()
                 try:
-                     if(ans[0:2] == "P1" or ans[0:2] == "P2" or ans[0:2] == "P3" or ans[0:2] == "P4"):
+                    if(ans[0:2] == "P1" or ans[0:2] == "P2" or ans[0:2] == "P3" or ans[0:2] == "P4"):
                         print(ans[2])
-                        print('run try block')
+                        print('run try block2')
                         validInput = True
+                        error = False
                 except IndexError as e:
-                     print(e)
-                     error = True
-                     validInput = False
-                     engine.say("problem in reading your tag, please enter your answer again")
-                     engine.runAndWait()
-                while(error == True):
-                    ans = answerInput()
-                    try:
-                        if(ans[0:2] == "P1" or ans[0:2] == "P2" or ans[0:2] == "P3" or ans[0:2] == "P4"):
-                            print(ans[2])
-                            print('run try block2')
-                            validInput = True
-                            error = False
-                    except IndexError as e:
-                        print(e)
-                        error = True
-                        validInput = False
-                        engine.say("problem in reading your tag, please enter your answer again")
-                        engine.runAndWait()
+                    print(e)
+                    error = True
+                    validInput = False
+                    engine.say("problem in reading your tag, please enter your answer again")
+                    engine.runAndWait()
                 
             if(validInput == True):
                 engine.say("You have selected option " + ans[2])
