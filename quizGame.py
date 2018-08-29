@@ -79,16 +79,18 @@ quizQuestions['questionBank'].append({
 
 
 def answerInput():
-    text = ""
+    text1 = ""
     try:
         #t0 = time.clock()
        # global playerEntry
-        while text[0:2] != "P1" or text[0:2] != "P2" or text[0:2] != "P3" or text[0:2] != "P4" or text[0:2] != "GR" or text[0:2] != "EG":
+        while text1[0:2] != "P1" or text1[0:2] != "P2" or text1[0:2] != "P3" or text1[0:2] != "P4" or text1[0:2] != "GR" or text1[0:2] != "EG":
             engine.say("Place your card: ")
             engine.runAndWait()
             id, text = reader.read()
             print(id)
             print(text)
+            text1 = text
+            print(text1)
             if(text == "P1C"):
                print("matched")
         
