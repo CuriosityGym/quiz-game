@@ -20,6 +20,8 @@ player4=0
 playerScores=[0,0,0,0]
 winner =""
 points =10
+negPoints= -10
+rightAns = False
 reader = SimpleMFRC522.SimpleMFRC522()
 noOfPlayers=0
 playerEntry=""
@@ -108,7 +110,10 @@ def updateScore(playerNum, increment, numberOfPlayers):
     global playerScores
     for i in range(0,numberOfPlayers):
         if(playerNum==players[i]):
-            playerScores[i]= playerScores[i]+10
+            if(increment == True):
+                playerScores[i]= playerScores[i]+10
+            if(increment == False && playerScores[i] >= 10):
+                playerScores[i]= playerScores[i]-10
 '''
     if(playerNum == " player 1"):
         global player1
@@ -345,12 +350,15 @@ if(startGame == True):
                    realAns = q['d']   
                 speak('answer is  ' + q['answer'])
                 if(realAns == q['answer'] and str(i+1) == ans[1]):
-                   speak('Your answer is correct, 10 pointes to '+ players[i]) 
-                   updateScore(players[i],points,noOfPlayers)
+                   speak('Your answer is correct, 10 pointes to '+ players[i])
+                   rightAns = True
+                   updateScore(players[i],rightAns,noOfPlayers)
                 elif(realAns == q['answer'] and (str(i+1) != ans[1])):
                    speak('Your answer is right but player ' + str(i+1) + 'did not give this answer. No points to player'+ str(i+1)) 
                 else:
                     speak('Your answer is wrong')
+                    rightAns = False
+                    updateScore(players[i],rightAns,noOfPlayers)
                 
                 for y in playerScores:
                     print("player: " + str(y))
