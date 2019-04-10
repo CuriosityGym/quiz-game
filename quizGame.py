@@ -5,6 +5,11 @@ import pyttsx3;
 import json
 import requests
 import time
+import subprocess
+
+GPIO.setmode(GPIO.BCM)
+#GPIO.setup(3, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+#GPIO.wait_for_edge(3, GPIO.FALLING)
 
 engine = pyttsx3.init()
 rate = engine.getProperty('rate')
@@ -18,7 +23,8 @@ player2=0
 player3=0
 player4=0
 playerScores=[0,0,0,0]
-winner =""
+winners =""
+tie = False
 points =10
 negPoints= -10
 rightAns = False
@@ -112,8 +118,8 @@ def updateScore(playerNum, increment, numberOfPlayers):
         if(playerNum==players[i]):
             if(increment == True):
                 playerScores[i]= playerScores[i]+10
-            if(increment == False && playerScores[i] >= 10):
-                playerScores[i]= playerScores[i]-10
+            if(increment == False and playerScores[i] >= 10):
+                playerScores[i]= playerScores[i]-5
 '''
     if(playerNum == " player 1"):
         global player1
@@ -128,29 +134,35 @@ def updateScore(playerNum, increment, numberOfPlayers):
         global player4
         player4 += points
 '''
+'''
 def winner(scoreList, numPlayers):
-    global winner
+    global winners
+    global tie
     winr = scoreList[0]
     for a in range(0,numPlayers):
         if scoreList[a] > winr:
             winr = scoreList[a]
-            winner = players[a]
+            winners = players[a]
+            return true
+        if scoreList[a] == winr:
+        return False
+        break:
 '''
 def winner(p1,p2,p3,p4):
-    global winner
+    global winners
     if p1>p2 and p1 > p3 and p1>p4:
-        winner = "player 1"
+        winners = "player 1"
         return True
-    if p2>p1 and p2 > p3 and p2>p4:
-        winner = "player 2"
+    elif p2>p1 and p2 > p3 and p2>p4:
+        winners = "player 2"
         return True
-    if p3>p2 and p3 > p1 and p3>p4:
-        winner = "player 3"
+    elif p3>p2 and p3 > p1 and p3>p4:
+        winners = "player 3"
         return True
-    if p4>p2 and p4 > p3 and p4>p1:
-        winner = "player 4"
+    elif p4>p2 and p4 > p3 and p4>p1:
+        winners = "player 4"
         return True
-    if p1 == p2 and p1 == p3 and  p1==p4:
+    elif p1 == p2 and p1 == p3 and  p1==p4:
         print("its tie")
         return False
     elif p1 == p2 and p1 == p3:
@@ -183,27 +195,40 @@ def winner(p1,p2,p3,p4):
     elif p3 == p4:
         print("its tie")
         return False
-'''
+
 def shutdownRpi(halt):
    if halt == True:
+     speak("Gaming console is shutting down. Remove the power plug after 10 seconds.")
      print("shutdown rpi")
+     time.sleep(0.5)
+     subprocess.call(['shutdown', '-h', 'now'], shell=False)
+    
 
 def speak(msg):
     engine.say(msg)
     engine.runAndWait()
 
+def readButton():
+    button_state = GPIO.input(3)
+    if button_state == False:
+        safe_shutdown = True
+        time.sleep(0.2)
+        print("End The Game")
+        shutdownRpi(safe_shutdown)
+        
 readRules()
 
 #Ask for no of players
 #engine.say("How many players are there? ")
 #engine.say("Player 1  please place your card")
 #engine.runAndWait()
-speak("How many players are there?  Player 1  please place your card")
+speak("How many players are there?  Player 1 ")
 time.sleep(1)
 while(playersConfirmed != True):
     #t0=time.clock()
     #print(round(t0))
     #while(time.clock() - t0 < 15):
+    readButton()
     playerEntry = answerInput()
     prevEntry = playerEntry
     print(playerEntry[0:2])
@@ -212,7 +237,7 @@ while(playersConfirmed != True):
         noOfPlayers +=1
         speak('player ' + str(noOfPlayers) + 'added') 
         if(noOfPlayers == 1):
-           speak('player ' + str(noOfPlayers + 1) + 'please place your card')
+           speak('player ' + str(noOfPlayers + 1))
         t0=time.clock()
         if(playerEntry[0:2] == "P1"):
            playerInputs.remove('P1A')
@@ -238,26 +263,29 @@ while(playersConfirmed != True):
     #print(round(time.clock() - t0))
         if(noOfPlayers >= 2):
             if(noOfPlayers == 2):
-               speak("Do you want to play with 2 players then player 1 place your card if want to add more players then player 2 place your card") 
+               speak("Do you want to play with 2 players then player 1 place your card if want to add more players then player 3 ") 
+               readButton()
                playerEntry = answerInput()
-               if(playerEntry[0:2] == prevEntry[0:2]):
-                   speak('player ' + str(noOfPlayers + 1) + 'please place your card')
+               #if(playerEntry[0:2] == prevEntry[0:2]):
+                   #speak('player ' + str(noOfPlayers + 1) + 'please place your card')
                if(playerEntry[0:2] == "P1"):
                    playersConfirmed=True
                    startGame =True
             if(noOfPlayers ==3):
-               speak("Do you want to play with 3 players then player 1 place your card if want to add more players then player 3 place your card") 
+               speak("Do you want to play with 3 players then player 1 place your card if want to add more players then player 4 ") 
+               readButton()
                playerEntry = answerInput()
-               if(playerEntry[0:2] == prevEntry[0:2]):
-                   speak('player ' + str(noOfPlayers + 1) + 'please place your card')
+               #if(playerEntry[0:2] == prevEntry[0:2]):
+                   #speak('player ' + str(noOfPlayers + 1) + 'please place your card')
                if(playerEntry[0:2] == "P1"):
                    playersConfirmed=True
                    startGame =True
             if(noOfPlayers ==4):
-               speak("Do you want to play with 3 players then player 1 place your card if want to add more players then player 3 place your card") 
+               speak("Do you want to play with 4 players then player 1 place your card if want to add more players then player 4 ") 
+               readButton()
                playerEntry = answerInput()
-               if(playerEntry[0:2] == prevEntry[0:2]):
-                   speak('player ' + str(noOfPlayers + 1) + 'please place your card')
+               #if(playerEntry[0:2] == prevEntry[0:2]):
+                   #speak('player ' + str(noOfPlayers + 1) + 'please place your card')
                if(playerEntry[0:2] == "P1"):
                    playersConfirmed=True
                    startGame =True
@@ -267,6 +295,7 @@ while(playersConfirmed != True):
                 engine.runAndWait()'''
 
 if(startGame == True):
+    readButton()
     speak("Welcome all " + str(noOfPlayers) + " players, All the best, Lets play ")
     with open('quizQuestions.json') as json_file:
         data = json.load(json_file)
@@ -289,6 +318,7 @@ if(startGame == True):
             speak(players[i] + 'Enter your answer ')
             print("Enter your answer: ")
             #ans = raw_input("enter your answer :")
+            readButton()
             ans = answerInput()
             
             if(ans[0:2] == "EG"):
@@ -333,7 +363,7 @@ if(startGame == True):
                         speak("problem in reading your tag, please enter your answer again")
                 
             if(validInput == True):
-                speak("You have selected option " + ans[2] + "Are you sure, Do you want to lock option " + ans [2])
+                speak("You have selected option  " + ans[2] + "Are you sure, Do you want to lock option " + ans [2])
                 ans = answerInput()
                 time.sleep(1)
                 speak("Your final answer is option "+ans[2]) 
@@ -366,20 +396,20 @@ if(startGame == True):
                 i=i+1
 
             if(i==noOfPlayers):
-                speak('After ' + str(rounds) + 'rounds score is  ')
+                speak('After ' + str(rounds+1) + 'rounds score is  ')
                 rounds+=1
                 for x in range(0,noOfPlayers):
                     speak('Player '+str(x+1) +' '+ str(playerScores[x]) + ' points.')
                 i=0
-            if rounds==4:
+            if rounds==4:#(40/noOfPlayers):
                 print(rounds)
                 speak('All rounds are over ')
                 print("All rounds are over ")
-                gameOver = winner(playerScores,noOfPlayers)
-                if(gameOver == True):
-                   speak("Winner is "+ winner)
-                   print("Winner is" + winner)
-                if(winner == False):
+                gameOver = True
+                if(winner(playerScores[0],playerScores[1],playerScores[2],playerScores[3])):
+                   speak("Winner is "+ winners)
+                   print("Winner is" + winners)
+                else:
                    speak("Its a tie")
                    print("Its a tie")
                 speak("Thank you for playing. Do you want to play again? To play again place card of any player, to end game place end game card")   
@@ -389,15 +419,18 @@ if(startGame == True):
                   speak("Are you sure you want to end the game. If you want to end game then place End Game card again ")  
                   endGame = True
                   newGame = False
+                  startGame = False
                 if(playAgain[0:2] == "P1" or playAgain[0:2] == "P3" or playAgain[0:2] == "P3" or playAgain[0:2] == "P4"):
                   newGame = True
+                  speak("Lets play again")
                 if(endGame == True):  
                   playAgain = answerInput()
                   if(playAgain[0:2] == "EG"): 
-                     rpiHalt = True
+                     #rpiHalt = True
                      newGame = False
                      startGame = False
-                     shutdownRpi(rpiHalt)
+                     areYouSure = True
+                     #shutdownRpi(rpiHalt)
                   if(playAgain[0:2] == "P1" or playAgain[0:2] == "P3" or playAgain[0:2] == "P3" or playAgain[0:2] == "P4"):
                     newGame = True
                     speak("Lets play again")
