@@ -9,8 +9,12 @@ import requests
 import time
 import subprocess
 
+<<<<<<< HEAD
 
 #GPIO.setmode(GPIO.BCM)
+=======
+GPIO.setmode(GPIO.BCM)
+>>>>>>> 6526ba325c8399a751d6e18f71f6c6d575da17af
 #GPIO.setup(3, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 #GPIO.wait_for_edge(3, GPIO.FALLING)
 
@@ -206,7 +210,11 @@ def shutdownRpi(halt):
    if halt == True:
      speak("Gaming console is shutting down. Remove the power plug after 10 seconds.")
      print("shutdown rpi")
+<<<<<<< HEAD
      time.sleep(10)
+=======
+     time.sleep(0.5)
+>>>>>>> 6526ba325c8399a751d6e18f71f6c6d575da17af
      subprocess.call(['shutdown', '-h', 'now'], shell=False)
     
 
@@ -215,18 +223,31 @@ def speak(msg):
     #engine.runAndWait()
     os.system("flite -voice jmk -t ' " + msg + " '" )
 
+def readButton():
+    button_state = GPIO.input(3)
+    if button_state == False:
+        safe_shutdown = True
+        time.sleep(0.2)
+        print("End The Game")
+        shutdownRpi(safe_shutdown)
+        
 readRules()
 
 #Ask for no of players
 #engine.say("How many players are there? ")
 #engine.say("Player 1  please place your card")
 #engine.runAndWait()
+<<<<<<< HEAD
 speak("How many players are there?  Player 1 place your card")
+=======
+speak("How many players are there?  Player 1 ")
+>>>>>>> 6526ba325c8399a751d6e18f71f6c6d575da17af
 time.sleep(1)
 while(playersConfirmed != True):
     #t0=time.clock()
     #print(round(t0))
     #while(time.clock() - t0 < 15):
+    readButton()
     playerEntry = answerInput()
     prevEntry = playerEntry
     print(playerEntry[0:2])
@@ -235,7 +256,11 @@ while(playersConfirmed != True):
         noOfPlayers +=1
         speak('player ' + str(noOfPlayers) + ' added') 
         if(noOfPlayers == 1):
+<<<<<<< HEAD
            speak('player ' + str(noOfPlayers + 1) + ' place your card')
+=======
+           speak('player ' + str(noOfPlayers + 1))
+>>>>>>> 6526ba325c8399a751d6e18f71f6c6d575da17af
         t0=time.clock()
         if(playerEntry[0:2] == "P1"):
            playerInputs.remove('P1A')
@@ -261,7 +286,12 @@ while(playersConfirmed != True):
     #print(round(time.clock() - t0))
         if(noOfPlayers >= 2):
             if(noOfPlayers == 2):
+<<<<<<< HEAD
                speak("Do you want to play with 2 players then player 1 place your card if want to add more players then player 3 place your card") 
+=======
+               speak("Do you want to play with 2 players then player 1 place your card if want to add more players then player 3 ") 
+               readButton()
+>>>>>>> 6526ba325c8399a751d6e18f71f6c6d575da17af
                playerEntry = answerInput()
                #if(playerEntry[0:2] == prevEntry[0:2]):
                    #speak('player ' + str(noOfPlayers + 1) + 'please place your card')
@@ -269,7 +299,12 @@ while(playersConfirmed != True):
                    playersConfirmed=True
                    startGame =True
             if(noOfPlayers ==3):
+<<<<<<< HEAD
                speak("Do you want to play with 3 players then player 1 place your card if want to add more players then player 4  place your card") 
+=======
+               speak("Do you want to play with 3 players then player 1 place your card if want to add more players then player 4 ") 
+               readButton()
+>>>>>>> 6526ba325c8399a751d6e18f71f6c6d575da17af
                playerEntry = answerInput()
                #if(playerEntry[0:2] == prevEntry[0:2]):
                    #speak('player ' + str(noOfPlayers + 1) + 'please place your card')
@@ -277,7 +312,12 @@ while(playersConfirmed != True):
                    playersConfirmed=True
                    startGame =True
             if(noOfPlayers ==4):
+<<<<<<< HEAD
                speak("Do you want to play with 4 players then player 1 place your card if want to add more players then player 4 place your card") 
+=======
+               speak("Do you want to play with 4 players then player 1 place your card if want to add more players then player 4 ") 
+               readButton()
+>>>>>>> 6526ba325c8399a751d6e18f71f6c6d575da17af
                playerEntry = answerInput()
                #if(playerEntry[0:2] == prevEntry[0:2]):
                    #speak('player ' + str(noOfPlayers + 1) + 'please place your card')
@@ -290,6 +330,7 @@ while(playersConfirmed != True):
                 engine.runAndWait()'''
 
 if(startGame == True):
+    readButton()
     speak("Welcome all " + str(noOfPlayers) + " players, All the best, Lets play ")
     with open('quizQuestions.json') as json_file:
         data = json.load(json_file)
@@ -312,6 +353,7 @@ if(startGame == True):
             speak(players[i] + 'Enter your answer. place your card')
             print("Enter your answer: ")
             #ans = raw_input("enter your answer :")
+            readButton()
             ans = answerInput()
             
             if(ans[0:2] == "EG"):
@@ -356,7 +398,11 @@ if(startGame == True):
                         speak("problem in reading your tag, please enter your answer again, place your card")
                 
             if(validInput == True):
+<<<<<<< HEAD
                 speak("You have selected option  " + ans [2] + "Are you sure, Do you want to lock option " + ans [2] + ' place your card')
+=======
+                speak("You have selected option  " + ans[2] + "Are you sure, Do you want to lock option " + ans [2])
+>>>>>>> 6526ba325c8399a751d6e18f71f6c6d575da17af
                 ans = answerInput()
                 time.sleep(1)
                 speak("Your final answer is option "+ans[2]) 
@@ -415,7 +461,10 @@ if(startGame == True):
                   startGame = False
                 if(playAgain[0:2] == "P1" or playAgain[0:2] == "P3" or playAgain[0:2] == "P3" or playAgain[0:2] == "P4"):
                   newGame = True
+<<<<<<< HEAD
                   rounds =0
+=======
+>>>>>>> 6526ba325c8399a751d6e18f71f6c6d575da17af
                   speak("Lets play again")
                 if(endGame == True):  
                   playAgain = answerInput()
